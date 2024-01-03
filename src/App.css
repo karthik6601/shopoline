@@ -50,7 +50,7 @@ body{
   padding: 2%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
   
 }
 
@@ -130,4 +130,20 @@ p{
 .content{
   padding: 5px 20px;
   /* color:rgb(251, 64, 64) */
+}
+
+.searchProducts{
+  width: 100px;
+  height: 15px;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-right: 5px;
+  transition: all 0.5s;
+}
+
+.searchProducts:focus{
+  width: 200px;
+  height: 25px;
+  outline: none;
 }

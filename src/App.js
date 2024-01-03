@@ -1,6 +1,6 @@
 import "./App.css";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Routing from "./Routes/routes";
 
 function App() {
@@ -10,10 +10,22 @@ function App() {
     categories: [],
     meta: {},
   });
+  const [searchValue, SetSearchValue] = useState();
   const [theme, setTheme] = useState("light");
+
+  const filteredProducts=useMemo(()=>{
+    return data.products.filter((product)=>{
+      return (product.title.toLowerCase().includes(searchValue.toLowerCase()) || 
+      product.description.toLowerCase().includes(searchValue.toLowerCase()) ||
+      product.category.toLowerCase().includes(searchValue.toLowerCase())
+      )
+    })
+  },[searchValue])
+
+
   useEffect(() => {
-    // console.log(data)
-  }, [data]);
+    console.log(filteredProducts)
+  }, [filteredProducts]);
   useEffect(() => {
     const fetchData = async () => {
       await axios
@@ -34,7 +46,7 @@ function App() {
           // });
           // console.log(a,b);
           // console.log(categories);
-          const response={
+          const response = {
             status: true,
             products: res.data.products,
             categories: categories,
@@ -49,9 +61,21 @@ function App() {
     };
     fetchData();
   }, []);
+
+  const handleSearch = (value) => {
+    SetSearchValue(value);
+  };
+
   return (
     <div>
-      <Routing theme={theme} data={data} setTheme={setTheme} />
+      <Routing
+        theme={theme}
+        data={data}
+        filteredProducts={filteredProducts}
+        setTheme={setTheme}
+        searchValue={searchValue}
+        handleSeach={handleSearch}
+      />
     </div>
   );
 }

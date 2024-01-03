@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
-import MenuButton from "../reusableComponent/menuButton";
+import MenuButton from "../../reusableComponent/menuButton";
 import { User } from "lucide-react";
 import { styled } from "@mui/material/styles";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { LogIn } from "lucide-react";
 import { UserPlus } from "lucide-react";
+import SearchBox from "./SearchBox";
 
-function Navbar({ theme, setTheme }) {
+function Navbar({ theme, setTheme, handleSearch }) {
   return (
     <div className="navbar">
       <div
@@ -26,6 +27,7 @@ function Navbar({ theme, setTheme }) {
         }}
       >
         {/* <div className=''> */}
+        <SearchBox handleSearch={handleSearch}  />
         <MenuButton
           label={<User color="black" />}
           options={[

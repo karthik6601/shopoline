@@ -11,8 +11,8 @@ export default function MenuButton({ label, options, theme }) {
     const style = document.createElement("style");
     style.innerHTML = `
       .css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper {
-        background-color: ${theme == "light" ? "antiquewhite" : "#4d6160"};
-        color:${theme == "dark" ? "antiquewhite" : "#4d6160"};
+        background-color: ${theme == "light" ? "whitesmoke" : "#4d6160"};
+        color:${theme == "dark" ? "whitesmoke" : "#4d6160"};
       }
       .css-j204z7-MuiFormControlLabel-root{
         margin-right:0px;
