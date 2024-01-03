@@ -5,9 +5,11 @@ import MenuItem from "@mui/material/MenuItem";
 
 export default function MenuButton({ label, options, theme }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  console.log(theme);
   const open = Boolean(anchorEl);
   React.useEffect(() => {
     // if (open) {
+      // console.log('hello');
     const style = document.createElement("style");
     style.innerHTML = `
       .css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper {
@@ -18,6 +20,7 @@ export default function MenuButton({ label, options, theme }) {
         margin-right:0px;
       }
     `;
+    console.log(style, theme == "light");
     document.head.appendChild(style);
     // }
   }, [theme]);
@@ -28,7 +31,7 @@ export default function MenuButton({ label, options, theme }) {
     setAnchorEl(null);
   };
 
-  //   console.log(options);
+    // console.log(options);
 
   return (
     <div>
@@ -44,6 +47,7 @@ export default function MenuButton({ label, options, theme }) {
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
+        style={{maxHeight:'300px'}}
         open={open}
         onClose={handleClose}
         MenuListProps={{
@@ -60,7 +64,7 @@ export default function MenuButton({ label, options, theme }) {
                 key={i}
               >
                 <div style={{ display: "flex",  padding:'0px 1px', width:'120px', justifyContent:'space-between' }}>
-                  <span
+                  {el.item && <span
                     style={{
                     //   marginRight: "7px",
                     width:'40px',
@@ -71,7 +75,7 @@ export default function MenuButton({ label, options, theme }) {
                     }}
                   >
                     {el.item}
-                  </span>
+                  </span>}
                   <span
                     style={{
                     //   marginRight: "7px",

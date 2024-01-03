@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import MenuButton from "../../reusableComponent/menuButton";
+import MenuButton from "../../reusableComponent/menuButton";  
 import { User } from "lucide-react";
 import { styled } from "@mui/material/styles";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -7,13 +7,19 @@ import Switch from "@mui/material/Switch";
 import { LogIn } from "lucide-react";
 import { UserPlus } from "lucide-react";
 import SearchBox from "./SearchBox";
+// import MultipleSelectPlaceholder from "../../reusableComponent/DropDown";
+import Dropdown from "../../reusableComponent/DropDown";
+
+// import Drop
 
 function Navbar({ theme, setTheme, handleSearch }) {
   return (
     <div className="navbar">
       <div
-        style={{ width: "30%", display: "flex", justifyContent: "flex-start" }}
-      ></div>
+        style={{ width: "30%", display: "flex", justifyContent: "flex-start", padding:'0px 40px ' }}
+      >
+        {/* <Dropdown/> */}
+      </div>
       <div style={{ width: "40%", display: "flex", justifyContent: "center" }}>
         <h2>SHOPOLINE</h2>
       </div>
@@ -27,20 +33,20 @@ function Navbar({ theme, setTheme, handleSearch }) {
         }}
       >
         {/* <div className=''> */}
-        <SearchBox handleSearch={handleSearch}  />
+        <SearchBox handleSearch={handleSearch} />
         <MenuButton
           label={<User color="black" />}
           options={[
             {
-              item: <LogIn  />,
+              item: <LogIn />,
               close: true,
               name: "Log-In",
             },
             {
-              item: <UserPlus/>,
-              close:true,
-              name:'New User'
-            }
+              item: <UserPlus />,
+              close: true,
+              name: "New User",
+            },
           ]}
           theme={theme}
         />

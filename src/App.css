@@ -47,7 +47,7 @@ body{
 .products{
   /* background-color: red; */
   /* min-height:85%; */
-  padding: 2%;
+  /* padding: 2%; */
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -146,4 +146,11 @@ p{
   width: 200px;
   height: 25px;
   outline: none;
+}
+
+.categories{
+  width: 200px;
+  height: 30px;
+  border-radius: 10px;
+
 }

@@ -17,7 +17,7 @@ function Routing({ theme, setTheme, data, handleSeach, searchValue, filteredProd
         <Routes>
           <Route
             path="/"
-            element={<Products theme={theme} prods={filteredProducts} />}
+            element={<Products theme={theme} prods={filteredProducts} categories={data.categories} />}
           />
         </Routes>
       </div>

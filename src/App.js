@@ -26,7 +26,7 @@ function App() {
 
 
   useEffect(() => {
-    console.log(filteredProducts)
+    // console.log(filteredProducts)
   }, [filteredProducts]);
   useEffect(() => {
     const fetchData = async () => {
@@ -57,7 +57,7 @@ function App() {
               loaded: res.data.limit,
             },
           };
-          console.log(response);
+          // console.log(response);
           setData(response);
         });
     };
