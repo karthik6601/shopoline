@@ -67,6 +67,7 @@ export default function MenuButton({ label, options, theme }) {
                     color:theme == "dark" ? "white" : "black",
                       display: "flex",
                       alignItems: "center",
+                      justifyContent:"flex-start"
                     }}
                   >
                     {el.item}

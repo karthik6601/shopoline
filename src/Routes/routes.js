@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "../Components/navbar/Navbar";
 import Products from "../Components/products";
-function Routing({ theme, setTheme, data, handleSeach, filteredProducts }) {
+function Routing({ theme, setTheme, data, handleSeach, searchValue, filteredProducts }) {
   // const [products, setProducts] = useState([]);
   // useEffect(() => {
   //   if (data.status) {

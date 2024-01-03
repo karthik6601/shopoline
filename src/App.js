@@ -10,7 +10,9 @@ function App() {
     categories: [],
     meta: {},
   });
-  const [searchValue, SetSearchValue] = useState();
+  const [searchValue, SetSearchValue] = useState('');
+  const [filteredCategory, setFilteredCategory]=useState();
+  const [sortKey, setSortKey] = useState()
   const [theme, setTheme] = useState("light");
 
   const filteredProducts=useMemo(()=>{
@@ -20,7 +22,7 @@ function App() {
       product.category.toLowerCase().includes(searchValue.toLowerCase())
       )
     })
-  },[searchValue])
+  },[searchValue, data])
 
 
   useEffect(() => {
