@@ -5,7 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 
 export default function MenuButton({ label, options, theme }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  console.log(theme);
+  // console.log(theme);
   const open = Boolean(anchorEl);
   React.useEffect(() => {
     // if (open) {
@@ -20,7 +20,7 @@ export default function MenuButton({ label, options, theme }) {
         margin-right:0px;
       }
     `;
-    console.log(style, theme == "light");
+    // console.log(style, theme == "light");
     document.head.appendChild(style);
     // }
   }, [theme]);
@@ -60,6 +60,7 @@ export default function MenuButton({ label, options, theme }) {
               <MenuItem
                 onClick={() => {
                   el.close && handleClose();
+                  el.handleClickOption(el.name);
                 }}
                 key={i}
               >

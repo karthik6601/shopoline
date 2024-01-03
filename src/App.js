@@ -11,7 +11,7 @@ function App() {
     meta: {},
   });
   const [searchValue, SetSearchValue] = useState('');
-  const [filteredCategory, setFilteredCategory]=useState();
+  // const [filteredCategory, setFilteredCategory]=useState();
   const [sortKey, setSortKey] = useState()
   const [theme, setTheme] = useState("light");
 

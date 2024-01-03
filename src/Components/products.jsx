@@ -1,18 +1,62 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import StarRating from "../reusableComponent/StarRating";
-import { ChevronDownCircle } from "lucide-react";
+import { ChevronDownCircle, XCircle } from "lucide-react";
 import MenuButton from "../reusableComponent/menuButton";
 
 function Products({ theme, prods, categories }) {
-  const options=[...categories.map((el)=>{
-    return {
-      name:el,
-      close:false
-    }
-  })]
+  const [selectedCategory, setSelectedCategory] = useState([]);
+  // const handleClick =
+  useEffect(() => {
+    // console.log(selectedCategory);
+  }, [selectedCategory]);
+  const options = [
+    ...categories.map((el) => {
+      return {
+        name: el,
+        close: false,
+        handleClickOption: (category) => {
+          setSelectedCategory([...selectedCategory, category]);
+        },
+      };
+    }),
+  ];
   return (
     <div>
-      <MenuButton label={<ChevronDownCircle />} options={options} theme={theme}/>
+      <div className="categories">
+        <h4>Browse through products under each category</h4>
+        <MenuButton
+          label={
+            <ChevronDownCircle className="ChevronDownCircle" size={"18px"} />
+          }
+          options={options}
+          theme={theme}
+        />
+        <div style={{ display: "flex" }}>
+          {selectedCategory.map((el) => {
+            return (
+              <div className="chip" key={el}>
+                <span
+                  style={{ marginBottom: "2px", textTransform: "capitalize" }}
+                >
+                  {el}
+                </span>
+                <XCircle
+                  size={16}
+                  style={{ margin: "4px 0px 0px 4px", cursor: "pointer" }}
+                  onClick={() => {
+                    console.log();
+                    setSelectedCategory((prevselectedCategories) =>
+                    [...prevselectedCategories.filter(
+                      (category) => {return category != el}
+                    )]
+                    );
+                  }}
+                />
+              </div>
+            );
+          })}
+        </div>
+      </div>
       <div className={`products ${theme}`}>
         {prods.length > 0 &&
           prods.map((el) => {
