@@ -36,10 +36,12 @@ body{
 
 .dark{
   background-color: #4d6160;
+  transition: background-color 0.5s;
 }
 
 .light{
   background-color: whitesmoke;
+  transition: background-color 0.5s;
 }
 
 .products{
@@ -67,8 +69,7 @@ body{
   /* border: 1px solid black; */
   border-radius: 20px;
   /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
-  
-
+  transition: all 0.8s;
 }
 
 .tile-dark:hover{
@@ -95,4 +96,18 @@ body{
   /* height: 400px; */
   max-height: 200px;
   border-radius: 10px;
+}
+
+.cardTitle{
+  width: 100%;
+  height: 10%;
+  padding: 10px 5px;
+}
+
+.titleText{
+  margin-left: 30px;
+}
+
+.stars{
+  margin-left: 25px;
 }
