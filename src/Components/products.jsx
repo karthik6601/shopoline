@@ -5,10 +5,15 @@ import MenuButton from "../reusableComponent/menuButton";
 
 function Products({ theme, prods, categories }) {
   const [selectedCategory, setSelectedCategory] = useState([]);
-  // const handleClick =
-  useEffect(() => {
-    // console.log(selectedCategory);
-  }, [selectedCategory]);
+
+  const filteredProducts= useMemo(()=>{
+    return selectedCategory.length > 0
+    ? prods.filter((el) => {
+        return selectedCategory.includes(el.category);
+      })
+    : prods;
+  },[selectedCategory,prods])
+  
   const options = [
     ...categories.map((el) => {
       return {
@@ -20,6 +25,7 @@ function Products({ theme, prods, categories }) {
       };
     }),
   ];
+  
   return (
     <div>
       <div className="categories">
@@ -45,11 +51,11 @@ function Products({ theme, prods, categories }) {
                   style={{ margin: "4px 0px 0px 4px", cursor: "pointer" }}
                   onClick={() => {
                     console.log();
-                    setSelectedCategory((prevselectedCategories) =>
-                    [...prevselectedCategories.filter(
-                      (category) => {return category != el}
-                    )]
-                    );
+                    setSelectedCategory((prevselectedCategories) => [
+                      ...prevselectedCategories.filter((category) => {
+                        return category != el;
+                      }),
+                    ]);
                   }}
                 />
               </div>
@@ -58,8 +64,8 @@ function Products({ theme, prods, categories }) {
         </div>
       </div>
       <div className={`products ${theme}`}>
-        {prods.length > 0 &&
-          prods.map((el) => {
+        {filteredProducts.length > 0 &&
+          filteredProducts.map((el) => {
             return (
               <div className={`tile tile-${theme}`} key={el.id}>
                 <div className="cardTitle">
