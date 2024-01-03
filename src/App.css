@@ -63,8 +63,9 @@ body{
 
 .tile{
   width: 23%;
-  height: 40vh;
-  margin: 10px 3px;
+  
+  /* height: 40vh; */
+  margin: 15px 3px;
   padding: 5px;
   /* border: 1px solid black; */
   border-radius: 20px;
@@ -72,7 +73,24 @@ body{
   transition: all 0.8s;
 }
 
+p{
+  /* color: grey; */
+  padding: 2px 0px;
+}
+
+.titleText{
+  margin-left: 20px;
+}
+
+.p-dark, .titleText-dark{
+  color: rgb(198, 196, 196);
+}
+.p-light, .titleText-white{
+  color:grey;
+}
+
 .tile-dark:hover{
+  /* color:white; */
   background-color: #6f8987;
   box-shadow: 1px 1px 0.5px 0.5px rgba(0, 0, 0, 0.19);
 }
@@ -84,15 +102,15 @@ body{
 
 .card{
   width: 100%;
-  /* height: 40vh; */
-  margin: 5px 0px;
+  height: 25vh;
+  margin: 10px 0px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .image{
-  width: 80%;
+  max-width: 80%;
   /* height: 400px; */
   max-height: 200px;
   border-radius: 10px;
@@ -104,10 +122,12 @@ body{
   padding: 10px 5px;
 }
 
-.titleText{
-  margin-left: 30px;
-}
 
 .stars{
-  margin-left: 25px;
+  margin-left: 15px;
+}
+
+.content{
+  padding: 5px 20px;
+  /* color:rgb(251, 64, 64) */
 }

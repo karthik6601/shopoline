@@ -26,6 +26,13 @@ function App() {
             !cat.includes(items.category) && cat.push(items.category);
             return cat;
           }, []);
+          // let a=-1;
+          // let b=10;
+          // res.data.products.forEach(element => {
+          //   a=element.stock>a ? element.stock: a;
+          //   b=element.stock<b ? element.stock: b;
+          // });
+          // console.log(a,b);
           // console.log(categories);
           const response={
             status: true,
