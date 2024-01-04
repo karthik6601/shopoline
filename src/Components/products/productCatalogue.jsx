@@ -1,10 +1,17 @@
-import React, { useEffect, useMemo, useState } from "react";
-import StarRating from "../reusableComponent/StarRating";
+import React, {  useMemo, useState } from "react";
+import StarRating from "../../reusableComponent/StarRating";
 import { ChevronDownCircle, XCircle } from "lucide-react";
-import MenuButton from "../reusableComponent/menuButton";
+import MenuButton from "../../reusableComponent/menuButton";
+// import PlaceholderGraph from "rsuite/esm/Placeholder/PlaceholderGraph";
+import { useNavigate } from "react-router-dom";
+// import PreviewProduct from "./ProductPreview";
 
 function Products({ theme, prods, categories }) {
   const [selectedCategory, setSelectedCategory] = useState([]);
+  const [preview, setPreview]= useState({
+    open:false,
+    product:0
+  });
 
   const filteredProducts= useMemo(()=>{
     return selectedCategory.length > 0
@@ -14,6 +21,16 @@ function Products({ theme, prods, categories }) {
     : prods;
   },[selectedCategory,prods])
   
+  const navigate=useNavigate();
+
+  const handlePreviewClose=()=>{
+    setPreview(prev=> prev.open=false);
+  }
+
+  const handlePreviewOpen=(id)=>{
+    setPreview({open:true, product:id});
+  }
+
   const options = [
     ...categories.map((el) => {
       return {
@@ -38,19 +55,21 @@ function Products({ theme, prods, categories }) {
           theme={theme}
         />
         <div style={{ display: "flex" }}>
-          {selectedCategory.map((el) => {
+          {selectedCategory.map((el,i) => {
             return (
-              <div className="chip" key={el}>
+              <div className="chip" key={i}>
                 <span
                   style={{ marginBottom: "2px", textTransform: "capitalize" }}
+                  key={i}
                 >
                   {el}
                 </span>
                 <XCircle
                   size={16}
+                  key={i}
                   style={{ margin: "4px 0px 0px 4px", cursor: "pointer" }}
                   onClick={() => {
-                    console.log();
+                    // console.log();
                     setSelectedCategory((prevselectedCategories) => [
                       ...prevselectedCategories.filter((category) => {
                         return category != el;
@@ -67,7 +86,8 @@ function Products({ theme, prods, categories }) {
         {filteredProducts.length > 0 &&
           filteredProducts.map((el) => {
             return (
-              <div className={`tile tile-${theme}`} key={el.id}>
+                <>
+              <div className={`tile tile-${theme}`} key={el.id} onClick={()=>{navigate(`/product/${el.id}/${el.title}`)}}>
                 <div className="cardTitle">
                   <h3 className={`titleText titleText-${theme}`}>{el.title}</h3>
                   <span className={"stars"}>
@@ -99,6 +119,7 @@ function Products({ theme, prods, categories }) {
                   </h6>
                 )}
               </div>
+                </>
             );
           })}
       </div>

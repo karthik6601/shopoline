@@ -63,8 +63,8 @@ body{
 
 .tile{
   width: 23%;
-  
-  /* height: 40vh; */
+  cursor: pointer;
+  min-height: 40vh;
   margin: 15px 3px;
   padding: 5px;
   /* border: 1px solid black; */
@@ -167,4 +167,8 @@ p{
   margin: 0px 5px;
   display: flex;
   /* align-items: center; */
+}
+
+.productHead{
+  padding:25px;
 }

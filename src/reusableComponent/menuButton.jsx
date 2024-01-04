@@ -13,8 +13,8 @@ export default function MenuButton({ label, options, theme }) {
     const style = document.createElement("style");
     style.innerHTML = `
       .css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper {
-        background-color: ${theme == "light" ? "whitesmoke" : "#4d6160"};
-        color:${theme == "dark" ? "whitesmoke" : "#4d6160"};
+        background-color: ${theme === "light" ? "whitesmoke" : "#4d6160"};
+        color:${theme === "dark" ? "whitesmoke" : "#4d6160"};
       }
       .css-j204z7-MuiFormControlLabel-root{
         margin-right:0px;
@@ -69,7 +69,7 @@ export default function MenuButton({ label, options, theme }) {
                     style={{
                     //   marginRight: "7px",
                     width:'40px',
-                    color:theme == "dark" ? "white" : "black",
+                    color:theme === "dark" ? "white" : "black",
                       display: "flex",
                       alignItems: "center",
                       justifyContent:"flex-start"
