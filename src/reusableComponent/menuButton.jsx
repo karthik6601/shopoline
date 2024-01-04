@@ -9,7 +9,7 @@ export default function MenuButton({ label, options, theme }) {
   const open = Boolean(anchorEl);
   React.useEffect(() => {
     // if (open) {
-      // console.log('hello');
+    // console.log('hello');
     const style = document.createElement("style");
     style.innerHTML = `
       .css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper {
@@ -31,7 +31,7 @@ export default function MenuButton({ label, options, theme }) {
     setAnchorEl(null);
   };
 
-    // console.log(options);
+  // console.log(options);
 
   return (
     <div>
@@ -47,7 +47,7 @@ export default function MenuButton({ label, options, theme }) {
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
-        style={{maxHeight:'300px'}}
+        style={{ maxHeight: "300px" }}
         open={open}
         onClose={handleClose}
         MenuListProps={{
@@ -64,23 +64,34 @@ export default function MenuButton({ label, options, theme }) {
                 }}
                 key={i}
               >
-                <div style={{ display: "flex",  padding:'0px 1px', width:'120px', justifyContent:'space-between' }}>
-                  {el.item && <span
-                    style={{
-                    //   marginRight: "7px",
-                    width:'40px',
-                    color:theme === "dark" ? "white" : "black",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent:"flex-start"
-                    }}
-                  >
-                    {el.item}
-                  </span>}
+                <div
+                  style={{
+                    display: "flex",
+                    padding: "0px 1px",
+                    width: "120px",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  {el.item && (
+                    <span
+                    key={i}
+                      style={{
+                        //   marginRight: "7px",
+                        width: "40px",
+                        color: theme === "dark" ? "white" : "black",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "flex-start",
+                      }}
+                    >
+                      {el.item}
+                    </span>
+                  )}
                   <span
+                  key={i}
                     style={{
-                    //   marginRight: "7px",
-                      width:'80px',
+                      //   marginRight: "7px",
+                      width: "80px",
                       display: "flex",
                       alignItems: "flex-start",
                     }}
