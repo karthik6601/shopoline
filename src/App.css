@@ -133,7 +133,7 @@ p{
 }
 
 .searchProducts{
-  width: 100px;
+  width: 70%;
   height: 15px;
   border: none;
   border-radius: 5px;
@@ -143,9 +143,10 @@ p{
 }
 
 .searchProducts:focus{
-  width: 200px;
-  height: 25px;
+  width: 100%;
+  height: 30px;
   outline: none;
+  border-radius: 10px;
 }
 
 .categories{

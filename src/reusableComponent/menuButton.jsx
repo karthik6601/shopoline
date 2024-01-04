@@ -63,6 +63,7 @@ export default function MenuButton({ label, options, theme }) {
                   el.handleClickOption(el.name);
                 }}
                 key={i}
+                style={{ margin:'2px 0px'}}
               >
                 <div
                   style={{
@@ -94,6 +95,7 @@ export default function MenuButton({ label, options, theme }) {
                       width: "80px",
                       display: "flex",
                       alignItems: "flex-start",
+                      fontSize:'13px'
                     }}
                   >
                     {el.name}

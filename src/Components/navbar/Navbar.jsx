@@ -19,9 +19,10 @@ function Navbar({ theme, setTheme, handleSearch }) {
         style={{ width: "30%", display: "flex", justifyContent: "flex-start", padding:'0px 40px ' }}
       >
         {/* <Dropdown/> */}
+        <h2>SHOPOLINE</h2>
       </div>
       <div style={{ width: "40%", display: "flex", justifyContent: "center" }}>
-        <h2>SHOPOLINE</h2>
+      <SearchBox handleSearch={handleSearch} />
       </div>
       <div
         style={{
@@ -33,17 +34,17 @@ function Navbar({ theme, setTheme, handleSearch }) {
         }}
       >
         {/* <div className=''> */}
-        <SearchBox handleSearch={handleSearch} />
+        
         <MenuButton
           label={<User color="black" />}
           options={[
             {
-              item: <LogIn />,
+              item: <LogIn size={'16px'}/>,
               close: true,
               name: "Log-In",
             },
             {
-              item: <UserPlus />,
+              item: <UserPlus size={"16px"}/>,
               close: true,
               name: "New User",
             },
