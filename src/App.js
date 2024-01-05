@@ -20,7 +20,7 @@ function App() {
     return data.products.filter((product) => {
       return (
         product.title.toLowerCase().includes(searchValue.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchValue.toLowerCase()) ||
+        product.description.split('/[\s,]+/').map((el)=>el.toLowerCase()).includes(searchValue.toLowerCase()) ||
         product.category.toLowerCase().includes(searchValue.toLowerCase())
       );
     });
@@ -72,7 +72,7 @@ function App() {
     // console.log(location, navigate)
     SetSearchValue(value);
     if (!location.pathname.includes("products")) {
-      navigate("/products");
+      navigate("/");
     }
   };
 
