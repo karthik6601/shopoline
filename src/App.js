@@ -1,6 +1,7 @@
 import "./App.css";
 import axios from "axios";
 import { useEffect, useMemo, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Routing from "./Routes/routes";
 
 function App() {
@@ -10,20 +11,23 @@ function App() {
     categories: [],
     meta: {},
   });
-  const [searchValue, SetSearchValue] = useState('');
+  const [searchValue, SetSearchValue] = useState("");
   // const [filteredCategory, setFilteredCategory]=useState();
-  const [sortKey, setSortKey] = useState()
+  const [sortKey, setSortKey] = useState();
   const [theme, setTheme] = useState("light");
 
-  const filteredProducts=useMemo(()=>{
-    return data.products.filter((product)=>{
-      return (product.title.toLowerCase().includes(searchValue.toLowerCase()) || 
-      product.description.toLowerCase().includes(searchValue.toLowerCase()) ||
-      product.category.toLowerCase().includes(searchValue.toLowerCase())
-      )
-    })
-  },[searchValue, data])
+  const filteredProducts = useMemo(() => {
+    return data.products.filter((product) => {
+      return (
+        product.title.toLowerCase().includes(searchValue.toLowerCase()) ||
+        product.description.toLowerCase().includes(searchValue.toLowerCase()) ||
+        product.category.toLowerCase().includes(searchValue.toLowerCase())
+      );
+    });
+  }, [searchValue, data]);
 
+  const location = useLocation(),
+    navigate = useNavigate();
 
   useEffect(() => {
     // console.log(filteredProducts)
@@ -65,7 +69,11 @@ function App() {
   }, []);
 
   const handleSearch = (value) => {
+    // console.log(location, navigate)
     SetSearchValue(value);
+    if (!location.pathname.includes("products")) {
+      navigate("/products");
+    }
   };
 
   return (

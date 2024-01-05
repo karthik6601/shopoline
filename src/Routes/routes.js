@@ -17,7 +17,7 @@ function Routing({ theme, setTheme, data, handleSeach, searchValue, filteredProd
       <div style={{ overflow: "scroll", height: "92%" }} className="contents">
         <Routes>
           <Route
-            path="/"
+            path="/products"
             element={<Products theme={theme} prods={filteredProducts} categories={data.categories} />}
           />
           <Route path={"/product/:id/:desc"} element={<ProductView theme={theme}/>}/>

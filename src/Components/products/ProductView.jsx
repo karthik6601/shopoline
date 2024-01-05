@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import StarRating from "../../reusableComponent/StarRating";
@@ -18,18 +18,15 @@ function ProductView({ theme }) {
     });
   }, [id]);
 
-  //   useEffect(()=>{
-  //     if(product.title){
-  //         setInterval(()=>{
-  //             if(currentImage==product.images.length-1){
-  //                 // console('hello')
-  //                 setCurrentImage(0);
-  //             }else{
-  //                 setCurrentImage(prev=> prev+1);
-  //             }
-  //         },2000)
-  //     }
-  //   },[product])
+  useEffect(() => {
+    const img = currentImage < product.images?.length-1 ? currentImage+1 : 0;
+    if (product.images) {
+    //   console.log(product.images[img], img);
+      setTimeout(() => {
+        setCurrentImage(img);
+      }, 5000);
+    }
+  }, [currentImage,product]);
 
   return (
     <>
@@ -41,7 +38,11 @@ function ProductView({ theme }) {
             </div>
             <div className="wishlist">
               <div className="wishlisticon">
-                <Tooltip TransitionComponent={Zoom} placement="top" title="Add to wishlist">
+                <Tooltip
+                  TransitionComponent={Zoom}
+                  placement="top"
+                  title="Add to wishlist"
+                >
                   <Heart className="hrt" color="red" />
                 </Tooltip>
                 {/* <p className="textHide"> Add to wishlist</p> */}
