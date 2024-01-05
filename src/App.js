@@ -30,28 +30,19 @@ function App() {
     navigate = useNavigate();
 
   useEffect(() => {
-    // console.log(filteredProducts)
-  }, [filteredProducts]);
-  useEffect(() => {
+    const  controller= new AbortController();
+    const signal= controller.signal;
     const fetchData = async () => {
       await axios
         .get(
           // "https://api.slingacademy.com/v1/sample-data/products?offset=0&limit=100"
-          `https://dummyjson.com/products?limit=100`
+          `https://dummyjson.com/products?limit=100`, {signal}
         )
         .then((res) => {
           const categories = res.data.products.reduce((cat, items) => {
             !cat.includes(items.category) && cat.push(items.category);
             return cat;
           }, []);
-          // let a=-1;
-          // let b=10;
-          // res.data.products.forEach(element => {
-          //   a=element.stock>a ? element.stock: a;
-          //   b=element.stock<b ? element.stock: b;
-          // });
-          // console.log(a,b);
-          // console.log(categories);
           const response = {
             status: true,
             products: res.data.products,
@@ -61,11 +52,16 @@ function App() {
               loaded: res.data.limit,
             },
           };
-          // console.log(response);
           setData(response);
+        }).catch((err)=>{
+          console.log(err);
         });
     };
-    fetchData();
+    setTimeout(()=>{
+      fetchData();
+    },2000)
+
+    return ()=>controller.abort();
   }, []);
 
   const handleSearch = (value) => {
@@ -77,7 +73,7 @@ function App() {
   };
 
   return (
-    <div>
+    <div style={{height:'100vh', width:'100%'}}>
       <Routing
         theme={theme}
         data={data}

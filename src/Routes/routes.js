@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Navbar from "../Components/navbar/Navbar";
 import Products from "../Components/products/productCatalogue";
 import ProductView from "../Components/products/ProductView";
+import Loader from "../Components/Loader";
 function Routing({ theme, setTheme, data, handleSeach, searchValue, filteredProducts }) {
   // const [products, setProducts] = useState([]);
   // useEffect(() => {
@@ -15,13 +16,16 @@ function Routing({ theme, setTheme, data, handleSeach, searchValue, filteredProd
     <div className={`home ${theme}`}>
       <Navbar theme={theme} setTheme={setTheme} handleSearch={handleSeach} />
       <div style={{ overflow: "scroll", height: "92%" }} className="contents">
-        <Routes>
+        {data.status ? <Routes>
           <Route
             path="/"
             element={<Products theme={theme} prods={filteredProducts} categories={data.categories} />}
           />
           <Route path={"/product/:id/:desc"} element={<ProductView theme={theme}/>}/>
         </Routes>
+        :
+        <Loader/>
+        }
       </div>
     </div>
   );
