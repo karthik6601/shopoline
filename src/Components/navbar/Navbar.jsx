@@ -8,18 +8,28 @@ import { LogIn } from "lucide-react";
 import { UserPlus } from "lucide-react";
 import SearchBox from "./SearchBox";
 // import MultipleSelectPlaceholder from "../../reusableComponent/DropDown";
-import Dropdown from "../../reusableComponent/DropDown";
+// import Dropdown from "../../reusableComponent/DropDown";
+import { useNavigate } from "react-router-dom";
 
 // import Drop
 
-function Navbar({ theme, setTheme, handleSearch }) {
+function Navbar({ theme, setTheme, handleSearch, user, setUser }) {
+  const navigate= useNavigate();
+  
+  const handleLogin=()=>{
+    setUser((user)=>{return {...user, action:'login'}})
+  }
+  const handleLoginClose=()=>{
+    setUser((prev)=>{return {...prev, action:''}})
+  }
   return (
     <div className="navbar">
+      
       <div
         style={{ width: "30%", display: "flex", justifyContent: "flex-start", padding:'0px 40px ' }}
       >
         {/* <Dropdown/> */}
-        <h2>SHOPOLINE</h2>
+        <h2 className="name" onClick={()=>{navigate('/')}}>SHOPOLINE</h2>
       </div>
       <div style={{ width: "40%", display: "flex", justifyContent: "center" }}>
       <SearchBox handleSearch={handleSearch} />
@@ -39,9 +49,10 @@ function Navbar({ theme, setTheme, handleSearch }) {
           label={<User color="black" />}
           options={[
             {
-              item: <LogIn size={'16px'}/>,
+              item: <LogIn size={'16px'} onClick={handleLogin}/>,
               close: true,
               name: "Log-In",
+              handleClickOption:handleLogin
             },
             {
               item: <UserPlus size={"16px"}/>,

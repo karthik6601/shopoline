@@ -7,7 +7,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Zoom from "@mui/material/Zoom";
 // import { red } from "@mui/material/colors";
 
-function ProductView({ theme }) {
+function ProductView({ theme, user }) {
   const [currentImage, setCurrentImage] = useState(0);
   const { id } = useParams();
   const [product, setProduct] = useState({});
@@ -17,16 +17,20 @@ function ProductView({ theme }) {
       setProduct(res.data);
     });
   }, [id]);
+  // useEffect(() => {
+  //   console.log(user);
+  // }, [user]);
 
   useEffect(() => {
-    const img = currentImage < product.images?.length-1 ? currentImage+1 : 0;
+    const img =
+      currentImage < product.images?.length - 1 ? currentImage + 1 : 0;
     if (product.images) {
-    //   console.log(product.images[img], img);
+      // console.log(product.images[img], img);
       setTimeout(() => {
         setCurrentImage(img);
       }, 5000);
     }
-  }, [currentImage,product]);
+  }, [currentImage, product]);
 
   return (
     <>

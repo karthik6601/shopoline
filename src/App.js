@@ -12,6 +12,11 @@ function App() {
     meta: {},
   });
   const [searchValue, SetSearchValue] = useState("");
+  const [user, setUser] = useState({
+    isLoggedin: false,
+    userID: "",
+    action: "",
+  });
   // const [filteredCategory, setFilteredCategory]=useState();
   const [sortKey, setSortKey] = useState();
   const [theme, setTheme] = useState("light");
@@ -20,7 +25,10 @@ function App() {
     return data.products.filter((product) => {
       return (
         product.title.toLowerCase().includes(searchValue.toLowerCase()) ||
-        product.description.split('/[\s,]+/').map((el)=>el.toLowerCase()).includes(searchValue.toLowerCase()) ||
+        product.description
+          .split("/[s,]+/")
+          .map((el) => el.toLowerCase())
+          .includes(searchValue.toLowerCase()) ||
         product.category.toLowerCase().includes(searchValue.toLowerCase())
       );
     });
@@ -30,13 +38,14 @@ function App() {
     navigate = useNavigate();
 
   useEffect(() => {
-    const  controller= new AbortController();
-    const signal= controller.signal;
+    const controller = new AbortController();
+    const signal = controller.signal;
     const fetchData = async () => {
       await axios
         .get(
           // "https://api.slingacademy.com/v1/sample-data/products?offset=0&limit=100"
-          `https://dummyjson.com/products?limit=100`, {signal}
+          `https://dummyjson.com/products?limit=100`,
+          { signal }
         )
         .then((res) => {
           const categories = res.data.products.reduce((cat, items) => {
@@ -53,15 +62,16 @@ function App() {
             },
           };
           setData(response);
-        }).catch((err)=>{
+        })
+        .catch((err) => {
           console.log(err);
         });
     };
-    setTimeout(()=>{
+    setTimeout(() => {
       fetchData();
-    },2000)
+    }, 2000);
 
-    return ()=>controller.abort();
+    return () => controller.abort();
   }, []);
 
   const handleSearch = (value) => {
@@ -73,7 +83,7 @@ function App() {
   };
 
   return (
-    <div style={{height:'100vh', width:'100%'}}>
+    <div style={{ height: "100vh", width: "100%" }}>
       <Routing
         theme={theme}
         data={data}
@@ -81,6 +91,8 @@ function App() {
         setTheme={setTheme}
         searchValue={searchValue}
         handleSeach={handleSearch}
+        user={user}
+        setUser={setUser}
       />
     </div>
   );

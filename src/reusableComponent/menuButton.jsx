@@ -72,10 +72,11 @@ export default function MenuButton({ label, options, theme }) {
                     width: "120px",
                     justifyContent: "space-between",
                   }}
+                  key={i}
                 >
                   {el.item && (
                     <span
-                    key={i}
+                    key={i+1}
                       style={{
                         //   marginRight: "7px",
                         width: "40px",
@@ -89,7 +90,7 @@ export default function MenuButton({ label, options, theme }) {
                     </span>
                   )}
                   <span
-                  key={i}
+                  key={i+2}
                     style={{
                       //   marginRight: "7px",
                       width: "80px",

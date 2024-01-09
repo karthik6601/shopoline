@@ -377,3 +377,26 @@ p{
   width: 100%;
   height: 100%;
 }
+
+.loader-dark{
+  background-color: #4d6160;
+}
+
+.loader-light{
+  background-color: whitesmoke;
+}
+
+.name{
+  cursor: pointer;
+}
+
+.login-Card{
+  height: 20vh;
+  width: 300px;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  /* background-color: red; */
+}
