@@ -134,7 +134,7 @@ p{
 
 .searchProducts{
   width: 70%;
-  height: 15px;
+  height: 20px;
   border: none;
   border-radius: 5px;
   padding: 5px 10px;
@@ -391,12 +391,21 @@ p{
 }
 
 .login-Card{
-  height: 20vh;
+  height: 30vh;
   width: 300px;
   display: flex;
   justify-content: space-around;
   flex-direction: column;
   align-items: center;
-  padding: 10px;
+  /* padding: 15px; */
   /* background-color: red; */
+}
+
+.reg-Card{
+  height: 45vh;
+  width: 400px;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
 }

@@ -19,9 +19,15 @@ function Navbar({ theme, setTheme, handleSearch, user, setUser }) {
   const handleLogin=()=>{
     setUser((user)=>{return {...user, action:'login'}})
   }
+  const handleNewUser=()=>{
+    setUser((user)=>{return {...user, action:'register'}})
+  }
   const handleLoginClose=()=>{
     setUser((prev)=>{return {...prev, action:''}})
   }
+
+  
+
   return (
     <div className="navbar">
       
@@ -58,6 +64,7 @@ function Navbar({ theme, setTheme, handleSearch, user, setUser }) {
               item: <UserPlus size={"16px"}/>,
               close: true,
               name: "New User",
+              handleClickOption:handleNewUser
             },
           ]}
           theme={theme}

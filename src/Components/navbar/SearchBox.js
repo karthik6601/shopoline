@@ -1,6 +1,17 @@
 import React from "react";
 
 function searchBox({ handleSearch }) {
+  const debouncer=()=>{
+    let timer;
+    return (value)=>{
+      timer && clearTimeout(timer);
+      timer=setTimeout(()=>{
+        handleSearch(value);
+        // console.log(value);
+      }, 800);
+    }
+  }
+  const debouncedValue=debouncer();
   return (
     <div style={{width:'100%', height:'100%', display:'flex', justifyContent:"center"}}>
       <input
@@ -8,7 +19,7 @@ function searchBox({ handleSearch }) {
         className="searchProducts"
         placeholder="search products"
         onChange={(e) => {
-          handleSearch(e.target.value);
+          debouncedValue(e.target.value);
         }}
       />
     </div>

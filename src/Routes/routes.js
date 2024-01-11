@@ -20,7 +20,7 @@ function Routing({ theme, setTheme, data, handleSeach, searchValue, filteredProd
   }
   return (
     <div className={`home ${theme}`} >
-      <Login open={user.action=='login'} handleClose={handleClose} theme={theme}/>
+      <Login open={user.action.length > 0} handleClose={handleClose} theme={theme} action={user.action}/>
       <Navbar theme={theme} setTheme={setTheme} handleSearch={handleSeach} user={user} setUser={setUser} />
       <div style={{ overflow: "scroll", height: "93%" }} className="contents">
         {data.status ? <Routes>
