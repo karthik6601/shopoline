@@ -26,7 +26,7 @@ function Routing({ theme, setTheme, data, handleSeach, searchValue, filteredProd
         {data.status ? <Routes>
           <Route
             path="/"
-            element={<Products theme={theme} prods={filteredProducts} categories={data.categories} />}
+            element={<Products theme={theme} prods={filteredProducts} categories={data.categories} search={searchValue}/>}
           />
           <Route path={"/product/:id/:desc"} element={<ProductView theme={theme} user={user}/>}/>
         </Routes>

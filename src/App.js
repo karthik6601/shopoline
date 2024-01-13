@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Routing from "./Routes/routes";
+// import OpenAI from "openai";
 
 function App() {
   const [data, setData] = useState({
@@ -17,7 +18,6 @@ function App() {
     userID: "",
     action: "",
   });
-  // const [filteredCategory, setFilteredCategory]=useState();
   const [sortKey, setSortKey] = useState();
   const [theme, setTheme] = useState("light");
 
@@ -71,8 +71,13 @@ function App() {
       fetchData();
     }, 2000);
 
+
     return () => controller.abort();
   }, []);
+
+  const openAiResp=async ()=>{
+    const resp= await Openai
+  }
 
   const handleSearch = (value) => {
     // console.log(location, navigate)

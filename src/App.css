@@ -1,15 +1,21 @@
 *{
   margin: 0;
   padding: 0;
+  & ::-webkit-scrollbar {
+    /* display: none; */
+    width: 10px;
+  };
+  & ::-webkit-scrollbar-thumb{
+    background-color: darkgrey;
+    border-radius: 10px;
+  }
+
 }
 
-body::-webkit-scrollbar {
-  display: none;
-}
 
-.contents::-webkit-scrollbar {
+/* .contents::-webkit-scrollbar {
   display: none;
-}
+} */
 
 .navbar{
   width: 100%;
@@ -92,12 +98,12 @@ p{
 .tile-dark:hover{
   /* color:white; */
   background-color: #6f8987;
-  box-shadow: 1px 1px 0.5px 0.5px rgba(0, 0, 0, 0.19);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .tile-light:hover{
-  background-color: rgb(224, 223, 223);
-  box-shadow: 1px 1px 0.5px 0.5px rgba(0, 0, 0, 0.19);
+  background-color: rgb(250, 250, 250);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .card{
@@ -150,8 +156,8 @@ p{
 }
 
 .categories{
-  display: flex;
-  height: 7vh;
+  /* display: flex; */
+  height: 0%;
   align-items: center;
   margin-left: 25px;
   /* font-weight: bold; */
@@ -409,3 +415,45 @@ p{
   flex-direction: column;
   align-items: center;
 }
+
+.category-tiles{
+  display: flex;
+  align-items: center;
+}
+
+.categoryContainer{
+  overflow-x: scroll;
+  &::-webkit-scrollbar{
+    display: none;
+  }
+  display: flex;
+  scroll-behavior: smooth;
+}
+
+.category-tile{
+  margin: 10px;
+  padding: 15px;
+  border-radius: 10px;
+  /* background-color: silver; */
+  border: 2px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  text-transform: capitalize;
+  transition: 0.8s all;
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+.cTile-dark{
+  color: whitesmoke;
+  /* border: 2px solid silver; */
+}
+
+.sTile{
+  color: #925dec;
+  border: 2px solid #925dec;
+}
+
