@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "../Components/navbar/Navbar";
 import Products from "../Components/products/productCatalogue";
@@ -7,10 +8,6 @@ import Loader from "../reusableComponent/Loader";
 import Login from "../Components/user/Login";
 // import Login from "../Components/user/Login.Js";
 function Routing({ theme, setTheme, data, handleSeach, searchValue, filteredProducts, user, setUser }) {
-  // const [products, setProducts] = useState([]);
-  // useEffect(() => {
-  //   console.log(user);
-  // }, [user]);
   const handleClose=()=>{
     // console.log('heyy');
     setUser({
@@ -18,9 +15,14 @@ function Routing({ theme, setTheme, data, handleSeach, searchValue, filteredProd
       action:''
     })
   }
+  const handleToggleuserAction=(action)=>{
+    setUser({
+      ...user, action:action
+    });
+  }
   return (
     <div className={`home ${theme}`} >
-      <Login open={user.action.length > 0} handleClose={handleClose} theme={theme} action={user.action}/>
+      <Login open={user.action.length > 0} handleClose={handleClose} theme={theme} action={user.action} setAction={handleToggleuserAction}/>
       <Navbar theme={theme} setTheme={setTheme} handleSearch={handleSeach} user={user} setUser={setUser} />
       <div style={{ overflow: "scroll", height: "93%" }} className="contents">
         {data.status ? <Routes>

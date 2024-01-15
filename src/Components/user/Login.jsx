@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, createContext, useContext } from "react";
 import { Dialog, TextField, Button } from "@mui/material";
 // import { withStyles } from "@mui/styles";
 import DialogTitle from "@mui/material/DialogTitle";
+import ReCAPTCHA from "react-google-recaptcha";
 import DialogContent from "@mui/material/DialogContent";
 import { withStyles } from "@mui/styles";
+import { MoveRight } from "lucide-react";
+
+const cred= createContext(); 
 
 const CssTextField = withStyles({
   root: {
@@ -23,55 +27,76 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
-const LoginComponent = ({ loginCred, setLoginCred }) => {
+const LoginComponent = () => {
+  const { loginCred, setLoginCred, theme, setAction } =useContext(cred);
+  const onChange = () => {};
   return (
     <div className="login-Card">
       <CssTextField
+        required
         id="outlined-basic1"
         label="username"
         type="text"
         variant="outlined"
-        style={{ width: "250px" }}
+        style={{ width: "300px", margin: "10px" }}
         onChange={(e) => {
           setLoginCred({ ...loginCred, uName: e.target.value });
         }}
       />
       <CssTextField
+        required
         id="outlined-basic2"
         label="password"
         type="password"
         variant="outlined"
-        style={{ width: "250px" }}
+        style={{ width: "300px", margin: "10px" }}
         onChange={(e) => {
           setLoginCred({ ...loginCred, pd: e.target.value });
         }}
       />
-      <Button variant="contained" color="secondary">
+      <div className="captcha">
+        <ReCAPTCHA
+          sitekey="6Lf7ulEpAAAAABEA6Kp7ScgeZbgTjmgJtd9rn4LA"
+          onChange={onChange}
+          theme={theme}
+          size="normal"
+        />
+      </div>
+      <Button
+        variant="contained"
+        color="secondary"
+        style={{ width: "300px", margin: "10px" }}
+      >
         Sign-In
       </Button>
+      <div className="switch-log-reg" onClick={()=>{setAction('reg')}}>New to Shopoline?</div>
     </div>
   );
 };
 
-const RegisterComponent = ({ loginCred, setLoginCred }) => {
+const RegisterComponent = () => {
+  const { loginCred, setLoginCred, theme, setAction } =useContext(cred);
+  const onChange = () => {};
   return (
     <div className="reg-Card">
       <CssTextField
+        required
         id="outlined-basic1"
-        label="username"
-        type="text"
+        label="Email"
+        type="email"
         variant="outlined"
-        style={{ width: "400px" }}
+        style={{ width: "400px", margin: "10px" }}
         onChange={(e) => {
           setLoginCred({ ...loginCred, uName: e.target.value });
         }}
       />
       <CssTextField
+        required
         id="outlined-basic2"
-        label="password"
-        type="password"
+        label="User Name"
+        type="text"
         variant="outlined"
-        style={{ width: "400px" }}
+        style={{ width: "400px", margin: "10px" }}
         onChange={(e) => {
           setLoginCred({ ...loginCred, pd: e.target.value });
         }}
@@ -84,8 +109,9 @@ const RegisterComponent = ({ loginCred, setLoginCred }) => {
         }}
       >
         <CssTextField
+          required
           id="outlined-basic2"
-          label="password"
+          label="Password"
           type="password"
           variant="outlined"
           style={{ width: "190px" }}
@@ -94,8 +120,9 @@ const RegisterComponent = ({ loginCred, setLoginCred }) => {
           }}
         />
         <CssTextField
+          required
           id="outlined-basic2"
-          label="password"
+          label="Confirm Password"
           type="password"
           variant="outlined"
           style={{ width: "190px" }}
@@ -105,23 +132,36 @@ const RegisterComponent = ({ loginCred, setLoginCred }) => {
         />
       </div>
       <CssTextField
+        required
         id="outlined-basic2"
-        label="password"
-        type="password"
+        label="Phone Number"
+        type="text"
         variant="outlined"
-        style={{ width: "400px" }}
+        style={{ width: "400px", margin: "10px" }}
         onChange={(e) => {
           setLoginCred({ ...loginCred, pd: e.target.value });
         }}
       />
-      <Button variant="contained" color="secondary">
+      <ReCAPTCHA
+        sitekey="6Lf7ulEpAAAAABEA6Kp7ScgeZbgTjmgJtd9rn4LA"
+        theme={theme}
+        // style={{backgroundColor:'red'}}
+        onChange={onChange}
+        size="normal"
+      />
+      <Button
+        variant="contained"
+        color="secondary"
+        style={{ width: "400px", margin: "10px" }}
+      >
         Sign-Up
       </Button>
+      <div className="switch-log-reg" onClick={()=>{setAction('login')}}>Already a registered user?</div>
     </div>
   );
 };
 
-function Login({ open, handleClose, theme, action }) {
+function Login({ open, handleClose, theme, action, setAction }) {
   const [loginCred, setLoginCred] = useState({
     uName: "",
     pd: "",
@@ -149,11 +189,12 @@ function Login({ open, handleClose, theme, action }) {
       aria-describedby="alert-dialog-description"
     >
       <DialogTitle id="alert-dialog-title" style={{ fontWeight: "bolder" }}>
-        {"Log-in to Shopoline"}
+        {action==="login" ? "Log-in to Shopoline": "Welcome to Shopoline"}
       </DialogTitle>
       <DialogContent style={{ display: "flex", justifyContent: "center" }}>
-        {action=='login'? <LoginComponent/> : <RegisterComponent />}
-        
+       <cred.Provider value={{loginCred, setLoginCred, theme, setAction}}>
+       {action == "login" ? <LoginComponent /> : <RegisterComponent />}
+       </cred.Provider>
       </DialogContent>
     </Dialog>
   );

@@ -397,23 +397,24 @@ p{
 }
 
 .login-Card{
-  height: 30vh;
-  width: 300px;
+  /* height: 40vh; */
+  width: 20em;
   display: flex;
   justify-content: space-around;
   flex-direction: column;
   align-items: center;
-  /* padding: 15px; */
+  padding: 15px;
   /* background-color: red; */
 }
 
 .reg-Card{
-  height: 45vh;
+  /* height: 45vh; */
   width: 400px;
   display: flex;
   justify-content: space-around;
   flex-direction: column;
   align-items: center;
+  padding: 15px;
 }
 
 .category-tiles{
@@ -457,3 +458,19 @@ p{
   border: 2px solid #925dec;
 }
 
+.switch-log-reg{
+  padding:10px;
+  width:100%;
+  display:flex;
+  justify-content:flex-end;
+  color: rgb(54, 54, 248);
+  font-size:smaller;
+}
+
+.switch-log-reg:hover{
+  cursor: pointer;
+}
+
+.arrow{
+  color: rgb(67, 67, 236);
+}
