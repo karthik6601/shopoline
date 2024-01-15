@@ -75,9 +75,9 @@ function App() {
     return () => controller.abort();
   }, []);
 
-  const openAiResp=async ()=>{
-    const resp= await Openai
-  }
+  // const openAiResp=async ()=>{
+  //   const resp= await Openai
+  // }
 
   const handleSearch = (value) => {
     // console.log(location, navigate)
