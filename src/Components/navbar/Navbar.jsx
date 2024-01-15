@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext } from "react";
 import MenuButton from "../../reusableComponent/menuButton";  
 import { User } from "lucide-react";
 import { styled } from "@mui/material/styles";
@@ -7,23 +7,24 @@ import Switch from "@mui/material/Switch";
 import { LogIn } from "lucide-react";
 import { UserPlus } from "lucide-react";
 import SearchBox from "./SearchBox";
-// import MultipleSelectPlaceholder from "../../reusableComponent/DropDown";
-// import Dropdown from "../../reusableComponent/DropDown";
+import { stateProps } from "../../Routes/routes";
+import { USER_ACTION } from "../../App";
 import { useNavigate } from "react-router-dom";
 
 // import Drop
 
-function Navbar({ theme, setTheme, handleSearch, user, setUser }) {
+function Navbar() {
+  const {theme, setTheme, handleSearch, user, setUser, USER_ACTION} = useContext(stateProps);
   const navigate= useNavigate();
   
   const handleLogin=()=>{
-    setUser((user)=>{return {...user, action:'login'}})
+    setUser({type:USER_ACTION.LOGIN})
   }
   const handleNewUser=()=>{
-    setUser((user)=>{return {...user, action:'register'}})
+    setUser({type:USER_ACTION.REG})
   }
   const handleLoginClose=()=>{
-    setUser((prev)=>{return {...prev, action:''}})
+    setUser({type:USER_ACTION.CLOSE})
   }
 
   

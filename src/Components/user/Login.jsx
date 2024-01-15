@@ -6,7 +6,8 @@ import ReCAPTCHA from "react-google-recaptcha";
 import DialogContent from "@mui/material/DialogContent";
 import { withStyles } from "@mui/styles";
 import { MoveRight } from "lucide-react";
-
+import { stateProps } from "../../Routes/routes";
+import { USER_ACTION } from "../../App";
 const cred= createContext(); 
 
 const CssTextField = withStyles({
@@ -161,7 +162,8 @@ const RegisterComponent = () => {
   );
 };
 
-function Login({ open, handleClose, theme, action, setAction }) {
+function Login() {
+  const {theme, handleClose, open, action, setAction} = useContext(stateProps);
   const [loginCred, setLoginCred] = useState({
     uName: "",
     pd: "",

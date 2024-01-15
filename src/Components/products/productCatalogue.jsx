@@ -1,20 +1,26 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState, useContext } from "react";
 import StarRating from "../../reusableComponent/StarRating";
-import { ChevronDownCircle, ChevronLeft, ChevronRight, XCircle } from "lucide-react";
+import {
+  ChevronDownCircle,
+  ChevronLeft,
+  ChevronRight,
+  XCircle,
+} from "lucide-react";
 import MenuButton from "../../reusableComponent/menuButton";
 // import PlaceholderGraph from "rsuite/esm/Placeholder/PlaceholderGraph";
 import { useNavigate } from "react-router-dom";
 import Position from "rsuite/esm/Overlay/Position";
-// import PreviewProduct from "./ProductPreview";
+import { stateProps } from "../../Routes/routes";
 
-function Products({ theme, prods, categories, search }) {
+function Products() {
+  const { theme, prods, categories, search } = useContext(stateProps);
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [preview, setPreview] = useState({
     open: false,
     product: 0,
   });
 
-  const catRef= useRef();
+  const catRef = useRef();
 
   const filteredProducts = useMemo(() => {
     return selectedCategory.length > 0
@@ -39,10 +45,9 @@ function Products({ theme, prods, categories, search }) {
   };
 
   const handleCategorySelect = (category) => {
-    if(selectedCategory.includes(category)){
-      setSelectedCategory(prev=> prev.filter(el=> el!=category));
-    }
-    else{
+    if (selectedCategory.includes(category)) {
+      setSelectedCategory((prev) => prev.filter((el) => el != category));
+    } else {
       setSelectedCategory([category, ...selectedCategory]);
     }
   };
@@ -61,59 +66,74 @@ function Products({ theme, prods, categories, search }) {
 
   return (
     <div>
-     {((search?.length==0) ? true : selectedCategory.length > 0) && <div className="categories">
-        <div style={{ display: "flex", marginTop: "10px" }}>
-          <h4>Browse through products under each category</h4>
-          <MenuButton
-            label={
-              <ChevronDownCircle className="ChevronDownCircle" size={"18px"} />
-            }
-            options={options}
-            theme={theme}
-          />
-        </div>
+      {(search?.length == 0 ? true : selectedCategory.length > 0) && (
+        <div className="categories">
+          <div style={{ display: "flex", marginTop: "10px" }}>
+            <h4>Browse through products under each category</h4>
+            <MenuButton
+              label={
+                <ChevronDownCircle
+                  className="ChevronDownCircle"
+                  size={"18px"}
+                />
+              }
+              options={options}
+              theme={theme}
+            />
+          </div>
 
-        <div className="category-tiles">
-          <div style={{cursor:'pointer'}} onClick={()=> {catRef.current.scrollLeft-= window.innerWidth}}>
-            <ChevronLeft/>
-          </div>
-          <div className="categoryContainer"  ref={catRef}>
-          {selectedCategory.map((el) => {
-            return (
-              <div
-                className={`category-tile cTile-${theme} sTile`}
-                onClick={() => {
-                  handleCategorySelect(el);
-                }}
-              >
-                {el.split("-").join(" ")}
-              </div>
-            );
-          })}
-          {categories
-            .filter((el) => {
-              return !selectedCategory.includes(el);
-            })
-            .map((el) => {
-              return (
-                <div
-                  className={`category-tile cTile-${theme} ${
-                    selectedCategory.includes(el) ? "sTile" : ""
-                  }`}
-                  onClick={() => {
-                    handleCategorySelect(el);
-                  }}
-                >
-                  {el.split("-").join(" ")}
-                </div>
-              );
-            })}
-          </div>
-          <div style={{cursor:'pointer'}} onClick={()=> {catRef.current.scrollLeft+= window.innerWidth}}>
-            <ChevronRight/>
+          <div className="category-tiles">
+            <div
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                catRef.current.scrollLeft -= window.innerWidth;
+              }}
+            >
+              <ChevronLeft />
+            </div>
+            <div className="categoryContainer" ref={catRef}>
+              {selectedCategory.map((el) => {
+                return (
+                  <div
+                    className={`category-tile cTile-${theme} sTile`}
+                    onClick={() => {
+                      handleCategorySelect(el);
+                    }}
+                  >
+                    {el.split("-").join(" ")}
+                  </div>
+                );
+              })}
+              {categories
+                .filter((el) => {
+                  return !selectedCategory.includes(el);
+                })
+                .map((el) => {
+                  return (
+                    <div
+                      className={`category-tile cTile-${theme} ${
+                        selectedCategory.includes(el) ? "sTile" : ""
+                      }`}
+                      onClick={() => {
+                        handleCategorySelect(el);
+                      }}
+                    >
+                      {el.split("-").join(" ")}
+                    </div>
+                  );
+                })}
+            </div>
+            <div
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                catRef.current.scrollLeft += window.innerWidth;
+              }}
+            >
+              <ChevronRight />
+            </div>
           </div>
         </div>
-      </div>}
+      )}
       <div className={`products ${theme}`}>
         {filteredProducts.length > 0 &&
           filteredProducts.map((el) => {

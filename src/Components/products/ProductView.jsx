@@ -1,13 +1,14 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import StarRating from "../../reusableComponent/StarRating";
 import { Heart, ShoppingBag, ShoppingCart } from "lucide-react";
 import Tooltip from "@mui/material/Tooltip";
 import Zoom from "@mui/material/Zoom";
-// import { red } from "@mui/material/colors";
+import { stateProps } from "../../Routes/routes";
 
-function ProductView({ theme, user }) {
+function ProductView() {
+  const { theme, user } = useContext(stateProps);
   const [currentImage, setCurrentImage] = useState(0);
   const { id } = useParams();
   const [product, setProduct] = useState({});
