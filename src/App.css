@@ -163,9 +163,10 @@ p{
 
 .categories{
   /* display: flex; */
-  height: 0%;
+  /* height: 0%; */
   align-items: center;
   margin-left: 25px;
+  
   /* font-weight: bold; */
 }
 
