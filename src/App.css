@@ -50,10 +50,16 @@ body{
   transition: background-color 0.5s;
 }
 
+.product-content{
+  display: flex;
+  flex-direction: column;
+}
+
 .products{
   /* background-color: red; */
   /* min-height:85%; */
   /* padding: 2%; */
+  margin-top: 1%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;

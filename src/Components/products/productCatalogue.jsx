@@ -65,7 +65,7 @@ function Products() {
   ];
 
   return (
-    <div>
+    <div className="product-content">
       {(search?.length == 0 ? true : selectedCategory.length > 0) && (
         <div className="categories">
           <div style={{ display: "flex", marginTop: "10px" }}>

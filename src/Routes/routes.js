@@ -56,7 +56,7 @@ function Routing({
         <Login />
         <Navbar />
         <div
-          style={{ overflow: "scroll", height: "92%", marginTop: "2%" }}
+          style={{ overflow: "scroll", height: "93%" }}
           className="contents"
         >
           {data.status ? (
