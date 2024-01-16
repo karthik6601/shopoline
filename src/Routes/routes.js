@@ -1,12 +1,14 @@
 import React, { createContext } from "react";
-import { lazy } from "react";
+import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "../Components/navbar/Navbar";
-import Products from "../Components/products/productCatalogue";
-import ProductView from "../Components/products/ProductView";
+// import Products from "../Components/products/productCatalogue";
+// import ProductView from "../Components/products/ProductView";
 import Loader from "../reusableComponent/Loader";
 import Login from "../Components/user/Login";
 import { USER_ACTION } from "../App";
+const Products = lazy(() => import("../Components/products/productCatalogue"));
+const ProductView = lazy(() => import("../Components/products/ProductView"));
 // import Login from "../Components/user/Login.Js";
 
 export const stateProps = createContext();
@@ -45,30 +47,35 @@ function Routing({
         user,
         setUser,
         USER_ACTION,
-        search:searchValue,
-        prods:filteredProducts,
-        categories:data.categories
+        search: searchValue,
+        prods: filteredProducts,
+        categories: data.categories,
       }}
     >
       <div className={`home ${theme}`}>
-        <Login/>
-        <Navbar/>
-        <div style={{ overflow: "scroll", height: "93%" }} className="contents">
+        <Login />
+        <Navbar />
+        <div
+          style={{ overflow: "scroll", height: "92%", marginTop: "2%" }}
+          className="contents"
+        >
           {data.status ? (
             <Routes>
               <Route
                 path="/"
                 element={
-                  <Products
-                    // prods={filteredProducts}
-                    // categories={data.categories}
-                    // search={searchValue}
-                  />
+                  <Suspense fallback={<Loader />}>
+                    <Products />
+                  </Suspense>
                 }
               />
               <Route
                 path={"/product/:id/:desc"}
-                element={<ProductView  />}
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <ProductView />
+                  </Suspense>
+                }
               />
             </Routes>
           ) : (
