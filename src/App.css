@@ -12,6 +12,13 @@
 
 }
 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
 
 /* .contents::-webkit-scrollbar {
   display: none;
@@ -166,7 +173,6 @@ p{
   /* height: 0%; */
   align-items: center;
   margin-left: 25px;
-  
   /* font-weight: bold; */
 }
 

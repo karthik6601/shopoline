@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useMemo, useReducer, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Routing from "./Routes/routes";
-// import OpenAI from "openai";
+
 export const USER_ACTION={
   REG:'reg',
   LOGIN:'login',
