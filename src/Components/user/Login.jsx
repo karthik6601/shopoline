@@ -30,11 +30,22 @@ const CssTextField = withStyles({
 const LoginComponent = () => {
   const { loginCred, setLoginCred, theme, setAction } = useContext(cred);
   const [captcha, setCaptcha] = useState(null);
+  const [error, setError]= useEffect(false);
+
+  
+
+
   const onChange = (e) => {
     setCaptcha(e);
   };
   return (
     <div className="login-Card">
+      {
+        error && 
+        <div style={{ height: "25px", color: "red" }}>
+          <p style={{ fontSize: "small", marginLeft: "10px" }}>Your Credentials does not Match</p>
+        </div>
+      }
       <CssTextField
         required
         id="outlined-basic1"
