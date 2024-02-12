@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import MenuButton from "../../reusableComponent/menuButton";  
-import { User } from "lucide-react";
+import MenuButton from "../../reusableComponent/menuButton";
+import { CircleUser, LogOut, User } from "lucide-react";
 import { styled } from "@mui/material/styles";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
@@ -11,35 +11,45 @@ import { stateProps } from "../../Routes/routes";
 import { USER_ACTION } from "../../App";
 import { useNavigate } from "react-router-dom";
 
-// import Drop
-
 function Navbar() {
-  const {theme, setTheme, handleSearch, user, setUser, USER_ACTION} = useContext(stateProps);
-  const navigate= useNavigate();
-  
-  const handleLogin=()=>{
-    setUser({type:USER_ACTION.LOGIN})
-  }
-  const handleNewUser=()=>{
-    setUser({type:USER_ACTION.REG})
-  }
-  const handleLoginClose=()=>{
-    setUser({type:USER_ACTION.CLOSE})
-  }
+  const { theme, setTheme, handleSearch, user, setUser, USER_ACTION } =
+    useContext(stateProps);
+  const navigate = useNavigate();
 
-  
-
+  const handleLogin = () => {
+    setUser({ type: USER_ACTION.LOGIN });
+  };
+  const handleNewUser = () => {
+    setUser({ type: USER_ACTION.REG });
+  };
+  const handleLoginClose = () => {
+    setUser({ type: USER_ACTION.CLOSE });
+  };
+  const handleLogout=()=>{
+    setUser({type:USER_ACTION.LOGGED_OUT})
+  }
   return (
     <div className="navbar">
-      
       <div
-        style={{ width: "30%", display: "flex", justifyContent: "flex-start", padding:'0px 40px ' }}
+        style={{
+          width: "30%",
+          display: "flex",
+          justifyContent: "flex-start",
+          padding: "0px 40px ",
+        }}
       >
         {/* <Dropdown/> */}
-        <h2 className="name" onClick={()=>{navigate('/')}}>SHOPOLINE</h2>
+        <h2
+          className="name"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          SHOPOLINE
+        </h2>
       </div>
       <div style={{ width: "40%", display: "flex", justifyContent: "center" }}>
-      <SearchBox handleSearch={handleSearch} />
+        <SearchBox handleSearch={handleSearch} />
       </div>
       <div
         style={{
@@ -50,26 +60,39 @@ function Navbar() {
           alignItems: "center",
         }}
       >
-        {/* <div className=''> */}
-        
-        <MenuButton
-          label={<User color="black" />}
+        {user.isLoggedin ? (
+          <MenuButton
+          label={<span style={{color:'black', display:'flex', alignItems:'center'}}><CircleUser style={{margin:'0px 10px'}}/>{user.userName}</span>}
           options={[
             {
-              item: <LogIn size={'16px'} onClick={handleLogin}/>,
+              item: <LogOut size={"16px"} onClick={handleLogout} />,
               close: true,
-              name: "Log-In",
-              handleClickOption:handleLogin
-            },
-            {
-              item: <UserPlus size={"16px"}/>,
-              close: true,
-              name: "New User",
-              handleClickOption:handleNewUser
-            },
+              name: "Log-Out",
+              handleClickOption: handleLogout,
+            }
           ]}
           theme={theme}
         />
+        ) : (
+          <MenuButton
+            label={<User color="black" />}
+            options={[
+              {
+                item: <LogIn size={"16px"} onClick={handleLogin} />,
+                close: true,
+                name: "Log-In",
+                handleClickOption: handleLogin,
+              },
+              {
+                item: <UserPlus size={"16px"} />,
+                close: true,
+                name: "New User",
+                handleClickOption: handleNewUser,
+              },
+            ]}
+            theme={theme}
+          />
+        )}
         <div>
           <ToggleTheme theme={theme} setTheme={setTheme} />
         </div>

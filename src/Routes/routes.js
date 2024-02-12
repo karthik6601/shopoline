@@ -29,9 +29,10 @@ function Routing({
       type: USER_ACTION.CLOSE,
     });
   };
-  const handleToggleuserAction = (action) => {
+  const handleToggleuserAction = (action, uName) => {
     setUser({
       type: action,
+      uName:uName
     });
   };
   return (

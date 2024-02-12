@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useMemo, useReducer, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Routing from "./Routes/routes";
+import { api } from "./API_URLs/api_urls";
 
 export const USER_ACTION={
   REG:'reg',
@@ -20,9 +21,9 @@ const updateUser = (userData, action) => {
     case USER_ACTION.CLOSE:
       return {...userData, action:USER_ACTION.CLOSE}
     case USER_ACTION.LOGGED_IN:
-      return {...userData, isLoggedin:true};
+      return {...userData, isLoggedin:true, action:USER_ACTION.CLOSE, userName:action.uName};
     case USER_ACTION.LOGGED_OUT:
-      return {...userData, isLoggedin:false};
+      return {...userData, isLoggedin:false, userName:""};
     default:
       return userData;
   }
@@ -37,7 +38,7 @@ function App() {
   const [searchValue, SetSearchValue] = useState("");
   const [user, setUser] = useReducer(updateUser, {
     isLoggedin: false,
-    userID: "",
+    userName: "",
     action: null,
   });
   const [sortKey, setSortKey] = useState();
@@ -66,7 +67,7 @@ function App() {
       await axios
         .get(
           // "https://api.slingacademy.com/v1/sample-data/products?offset=0&limit=100"
-          `https://dummyjson.com/products?limit=100`,
+          api.fetchProducts,
           { signal }
         )
         .then((res) => {
@@ -95,6 +96,11 @@ function App() {
 
     return () => controller.abort();
   }, []);
+
+  useEffect(()=>{
+    console.log('action',user)
+  },[user])
+
 
   const handleSearch = (value) => {
     // console.log(location, navigate)

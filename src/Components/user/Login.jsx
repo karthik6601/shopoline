@@ -5,10 +5,13 @@ import DialogTitle from "@mui/material/DialogTitle";
 import ReCAPTCHA from "react-google-recaptcha";
 import DialogContent from "@mui/material/DialogContent";
 import { withStyles } from "@mui/styles";
-import { MoveRight } from "lucide-react";
+import axios from "axios";
 import { stateProps } from "../../Routes/routes";
 import { USER_ACTION } from "../../App";
+import { api } from "../../API_URLs/api_urls";
+
 const cred = createContext();
+
 const CssTextField = withStyles({
   root: {
     "& label.Mui-focused": {
@@ -30,22 +33,45 @@ const CssTextField = withStyles({
 const LoginComponent = () => {
   const { loginCred, setLoginCred, theme, setAction } = useContext(cred);
   const [captcha, setCaptcha] = useState(null);
-  const [error, setError]= useEffect(false);
-
-  
-
+  const [error, setError] = useState({
+    er:false,
+    message:''
+  });
 
   const onChange = (e) => {
     setCaptcha(e);
   };
+
+  const login=async()=>{
+    const body={
+      uName:loginCred.uName,pwd:loginCred.pd
+    }
+    const resp=await axios.post(api.loginUser,body);
+    // console.log(resp);
+    if(resp.data.retVal==1){
+      setAction(USER_ACTION.LOGGED_IN, loginCred.uName)
+    }else if(resp.data.retVal==0){
+      setError({
+        er:true,
+        message:'No user found. Check your credentials or Register'
+      })
+    }else{
+      setError({
+        er:true,
+        message:'Oops, Something went wrong, please try again later'
+      })
+    }
+  }
+
   return (
     <div className="login-Card">
-      {
-        error && 
+      {error.er && (
         <div style={{ height: "25px", color: "red" }}>
-          <p style={{ fontSize: "small", marginLeft: "10px" }}>Your Credentials does not Match</p>
+          <p style={{ fontSize: "small", marginLeft: "10px" }}>
+            {error.message}
+          </p>
         </div>
-      }
+      )}
       <CssTextField
         required
         id="outlined-basic1"
@@ -78,6 +104,7 @@ const LoginComponent = () => {
       </div>
       <Button
         variant="contained"
+        onClick={login}
         color="secondary"
         disabled={!captcha}
         style={{ width: "300px", margin: "10px" }}
@@ -97,7 +124,8 @@ const LoginComponent = () => {
 };
 
 const RegisterComponent = () => {
-  const { loginCred, setLoginCred, theme, setAction } = useContext(cred);
+  const { loginCred, setLoginCred, theme, setAction} =
+    useContext(cred);
   const [captcha, setCaptcha] = useState(null);
   const [checkPd, setCheckPd] = useState(null);
   const [btnSts, setBtnSts] = useState(false);
@@ -106,50 +134,83 @@ const RegisterComponent = () => {
     ph: null,
     pd: null,
   });
+  const [isExist, setIsExist] = useState(null);
 
+  const register = async () => {
+    if (Object.values(error).filter((el) => el != null)?.length > 0) {
+      console.log(error);
+    } else {
+      console.log("sent", Object.values(error));
+      const body = {
+        email: loginCred.email,
+        name: loginCred.name,
+        uName: loginCred.uName,
+        pwd: loginCred.pd,
+        phNumber: loginCred.ph,
+      };
+
+      const RegUsr = await axios.post(api.newUser, body);
+      if (RegUsr.data.retVal == 1) {
+        setIsExist(null);
+        setAction(USER_ACTION.LOGGED_IN, loginCred.uName)
+      } else if (RegUsr.data.retVal == 0) {
+        setIsExist(true);
+      }
+      // console.log(RegUsr);
+    }
+  };
 
   useEffect(() => {
     const vals = Object.values(loginCred).filter((el) => el.length > 0);
-    if (vals.length == 4) {
+    // console.log('triggered');
+    if (vals.length == 5) {
       const a = vals.reduce((acc, el) => {
         return acc && el?.length > 0 ? true : false;
       }, true);
-      setBtnSts(a && captcha?.length > 0);
+      // console.log(a, error.pd);
+      setBtnSts(a && captcha?.length > 0 && error.pd == null);
     }
-  }, [loginCred, captcha]);
+  }, [loginCred, captcha, error]);
 
   useEffect(() => {
-    if (error.pd?.length> 0) {
+    if (error.pd?.length > 0) {
       if (loginCred.pd === checkPd) {
-        setError({ ...error, pd: "" });
-      } 
+        setError({ ...error, pd: null });
+      }
     }
     if (error.email?.length > 0) {
-      validateEmail(loginCred.email)
+      validateEmail();
     }
-    if(error.ph?.length > 0){
+    if (error.ph?.length > 0) {
       validateEmail();
     }
   }, [checkPd, loginCred]);
-
 
   const onChange = (e) => {
     setCaptcha(e);
   };
 
-  const ValidatePd=()=>{  
-    if(loginCred.pd==checkPd){
-      setError({ ...error, pd: "" });
-    }else{
+  const ValidatePd = () => {
+    if (loginCred.pd == checkPd) {
+      setError({ ...error, pd: null });
+    } else {
       setError({
-        ...error, pd:'Passwords do not match'
-      })
+        ...error,
+        pd: "Passwords do not match",
+      });
     }
-  }
+  };
 
-  const validateEmail = (email) => {
-    const trimEmail = email?.slice(2, email.length - 2);
-    if (!(trimEmail?.includes("@") && trimEmail?.includes("."))) {
+  const validateEmail = () => {
+    const trimEmail = loginCred.email?.slice(2, loginCred.email.length - 2);
+    // console.log(trimEmail)
+    if (
+      !(
+        trimEmail?.includes("@") &&
+        trimEmail?.split("@").length > 1 &&
+        trimEmail?.split("@")[1].includes(".")
+      )
+    ) {
       setError({
         ...error,
         email: "Please enter a valid email address",
@@ -157,27 +218,59 @@ const RegisterComponent = () => {
     } else {
       setError({
         ...error,
-        email: "",
+        email: null,
       });
     }
   };
 
-  const validatePh=()=>{
-    if(loginCred.ph.toString().length < 10){
-      console.log('sdd')
+  const validatePh = () => {
+    if (loginCred.ph.toString().length < 10) {
+      console.log("sdd");
       setError({
-        ...error, ph:'Please enter a valid phone number'
-      })
-    }else{
+        ...error,
+        ph: "Please enter a valid phone number",
+      });
+    } else {
       setError({
-        ...error, ph:''
-      })
+        ...error,
+        ph: null,
+      });
     }
-  }
-
+  };
 
   return (
     <div className="reg-Card">
+      {isExist && isExist == true ? (
+        <div>
+          <p
+            style={{
+              fontSize: "small",
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              color: "red",
+            }}
+          >
+            User already exists
+          </p>
+        </div>
+      ) : (
+        isExist == false && (
+          <div>
+            <p
+              style={{
+                fontSize: "small",
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                color: "red",
+              }}
+            >
+              No accounts found
+            </p>
+          </div>
+        )
+      )}
       {error.email?.length > 0 && (
         <div style={{ height: "25px", color: "red" }}>
           <p style={{ fontSize: "small", marginLeft: "10px" }}>{error.email}</p>
@@ -190,9 +283,7 @@ const RegisterComponent = () => {
         label="Email"
         type="email"
         value={loginCred.email}
-        onBlur={() => {
-          validateEmail(loginCred.email);
-        }}
+        onBlur={validateEmail}
         variant="outlined"
         style={{ width: "400px", margin: "10px" }}
         onChange={(e) => {
@@ -202,6 +293,20 @@ const RegisterComponent = () => {
       <CssTextField
         required
         id="outlined-basic2"
+        // error={error.email?.length > 0}
+        label="name"
+        type="text"
+        value={loginCred.name}
+        // onBlur={validateEmail}
+        variant="outlined"
+        style={{ width: "400px", margin: "10px" }}
+        onChange={(e) => {
+          setLoginCred({ ...loginCred, name: e.target.value });
+        }}
+      />
+      <CssTextField
+        required
+        id="outlined-basic3"
         label="User Name"
         type="text"
         variant="outlined"
@@ -211,7 +316,7 @@ const RegisterComponent = () => {
           setLoginCred({ ...loginCred, uName: e.target.value });
         }}
       />
-      {(error.pd?.length > 0) && (
+      {error.pd?.length > 0 && (
         <div style={{ height: "25px", color: "red" }}>
           <p style={{ fontSize: "small", marginLeft: "10px" }}>{error.pd}</p>
         </div>
@@ -226,7 +331,7 @@ const RegisterComponent = () => {
         <CssTextField
           required
           error={error.pd?.length > 0}
-          id="outlined-basic2"
+          id="outlined-basic41"
           label="Password"
           type="password"
           value={loginCred.pd}
@@ -239,7 +344,7 @@ const RegisterComponent = () => {
         <CssTextField
           required
           error={error.pd?.length > 0}
-          id="outlined-basic2"
+          id="outlined-basic42"
           label="Confirm Password"
           type="password"
           value={checkPd}
@@ -252,7 +357,7 @@ const RegisterComponent = () => {
           }}
         />
       </div>
-      {(error.ph?.length > 0) && (
+      {error.ph?.length > 0 && (
         <div style={{ height: "25px", color: "red" }}>
           <p style={{ fontSize: "small", marginLeft: "10px" }}>{error.ph}</p>
         </div>
@@ -260,14 +365,15 @@ const RegisterComponent = () => {
       <CssTextField
         error={error.ph?.length > 0}
         required
-        id="outlined-basic2"
+        id="outlined-basic5"
         label="Phone Number"
         type="tel"
         value={loginCred.ph}
         inputProps={{
-          maxLength:10
+          maxLength: 10,
         }}
         onBlur={validatePh}
+        onFocus={ValidatePd}
         variant="outlined"
         style={{ width: "400px", margin: "10px" }}
         onChange={(e) => {
@@ -283,6 +389,7 @@ const RegisterComponent = () => {
       <Button
         variant="contained"
         color="secondary"
+        onClick={register}
         disabled={!btnSts}
         style={{ width: "400px", margin: "10px" }}
       >
@@ -305,10 +412,12 @@ function Login() {
     useContext(stateProps);
   const [loginCred, setLoginCred] = useState({
     uName: "",
+    nmae: "",
     pd: "",
     ph: "",
     email: "",
   });
+  
 
   useEffect(() => {
     const style = document.createElement("style");
@@ -320,6 +429,8 @@ function Login() {
     document.head.appendChild(style);
   }, [theme]);
 
+  
+
   return (
     <Dialog
       open={open?.length > 0}
@@ -330,9 +441,11 @@ function Login() {
       <DialogTitle id="alert-dialog-title" style={{ fontWeight: "bolder" }}>
         {action === "login" ? "Log-in to Shopoline" : "Welcome to Shopoline"}
       </DialogTitle>
-
+      
       <DialogContent style={{ display: "flex", justifyContent: "center" }}>
-        <cred.Provider value={{ loginCred, setLoginCred, theme, setAction }}>
+        <cred.Provider
+          value={{ loginCred, setLoginCred, theme, setAction}}
+        >
           {action == "login" ? <LoginComponent /> : <RegisterComponent />}
         </cred.Provider>
       </DialogContent>
