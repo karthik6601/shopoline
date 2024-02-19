@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import MenuButton from "../../reusableComponent/menuButton";
-import { CircleUser, LogOut, User } from "lucide-react";
+import { CircleUser, LogOut, ShoppingCart, User } from "lucide-react";
 import { styled } from "@mui/material/styles";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
@@ -93,6 +93,9 @@ function Navbar() {
             theme={theme}
           />
         )}
+        <div style={{margin:'0px 15px'}} onClick={()=>navigate("/cart")}>
+          <ShoppingCart />
+        </div>
         <div>
           <ToggleTheme theme={theme} setTheme={setTheme} />
         </div>

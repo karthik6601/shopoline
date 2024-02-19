@@ -21,8 +21,11 @@ const updateUser = (userData, action) => {
     case USER_ACTION.CLOSE:
       return {...userData, action:USER_ACTION.CLOSE}
     case USER_ACTION.LOGGED_IN:
+      sessionStorage.setItem("user", JSON.stringify(action.uName));
+      // console.log('set local storage')
       return {...userData, isLoggedin:true, action:USER_ACTION.CLOSE, userName:action.uName};
     case USER_ACTION.LOGGED_OUT:
+      sessionStorage.removeItem("user");
       return {...userData, isLoggedin:false, userName:""};
     default:
       return userData;
@@ -90,6 +93,9 @@ function App() {
           console.log(err);
         });
     };
+    const user= JSON.parse(sessionStorage.getItem("user"));
+    // console.log(user)
+    setUser({type:USER_ACTION.LOGGED_IN, uName:user})
     setTimeout(() => {
       fetchData();
     }, 2000);
@@ -98,7 +104,7 @@ function App() {
   }, []);
 
   useEffect(()=>{
-    console.log('action',user)
+    user.userName?.length > 0 && console.log('action',user)
   },[user])
 
 

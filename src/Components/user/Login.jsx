@@ -49,6 +49,7 @@ const LoginComponent = () => {
     const resp=await axios.post(api.loginUser,body);
     // console.log(resp);
     if(resp.data.retVal==1){
+      
       setAction(USER_ACTION.LOGGED_IN, loginCred.uName)
     }else if(resp.data.retVal==0){
       setError({

@@ -20,10 +20,6 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 0; 
 }
 
-/* .contents::-webkit-scrollbar {
-  display: none;
-} */
-
 .navbar{
   width: 100%;
   height: 7%;
@@ -47,12 +43,12 @@ body{
   height: 100vh;
 }
 
-.dark{
+.home-dark{
   background-color: #4d6160;
   transition: background-color 0.5s;
 }
 
-.light{
+.home-light{
   background-color: whitesmoke;
   transition: background-color 0.5s;
 }
@@ -86,14 +82,11 @@ body{
   min-height: 40vh;
   margin: 15px 3px;
   padding: 5px;
-  /* border: 1px solid black; */
   border-radius: 20px;
-  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
   transition: all 0.8s;
 }
 
 p{
-  /* color: grey; */
   padding: 2px 0px;
 }
 
@@ -109,7 +102,6 @@ p{
 }
 
 .tile-dark:hover{
-  /* color:white; */
   background-color: #6f8987;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -130,7 +122,6 @@ p{
 
 .image{
   max-width: 80%;
-  /* height: 400px; */
   max-height: 200px;
   border-radius: 10px;
 }
@@ -148,7 +139,6 @@ p{
 
 .content{
   padding: 5px 20px;
-  /* color:rgb(251, 64, 64) */
 }
 
 .searchProducts{
@@ -169,11 +159,8 @@ p{
 }
 
 .categories{
-  /* display: flex; */
-  /* height: 0%; */
   align-items: center;
   margin-left: 25px;
-  /* font-weight: bold; */
 }
 
 .ChevronDownCircle{
@@ -186,16 +173,13 @@ p{
   padding: 5px;
   margin: 0px 5px;
   display: flex;
-  /* align-items: center; */
 }
 
 .productView{
   width: 100%;
   height: 100%;
-  /* background-color: black; */
 }
 .productHead{
-  /* padding:25px; */
   height: 10%;
   padding-left: 25px;
   display: flex;
@@ -212,7 +196,6 @@ p{
 }
 
 .productImage{
-  /* background-color: red; */
   width: 48%;
   height: 100%;
   display: flex;
@@ -234,15 +217,12 @@ p{
   height: 70%;
   display: flex;
   justify-content: center;
-  /* margin: 10px; */
-  /* margin-bottom: 10px; */
 }
 
 .currentImage{
   max-width: 100%;
   border-radius: 10px;
   max-height: 100%;
-  /* transition: all 1s; */
 }
 
 .previewImages{
@@ -264,14 +244,10 @@ p{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* background-color: black; */
-  /* padding: 10px; */
 }
 
 .productDesc{
   padding: 10px;
-  /* display: flex;
-  align-items: center; */
 } 
 
 .rating{
@@ -289,13 +265,9 @@ p{
   font-weight: bold;
 }
 
-/* .pricing{
-
-} */
 
 .discountPercentage{
   margin-left: 5px;
-  /* color:grey; */
   height: 30px;
   display: flex;
   flex-direction: column;
@@ -321,7 +293,6 @@ p{
   height: 100%;
   width: 100%;
   border-radius: 20px 20px 0px 0px;
-  /* background-color: red; */
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   display: flex;
   align-items: center;
@@ -339,8 +310,6 @@ p{
   display: flex;
   justify-content: flex-end;
   padding: 20px;
-  /* color: red; */
-  /* fill:'red'; */
 }
 
 .wishlisticon{
@@ -348,10 +317,6 @@ p{
   height: 20px;
   transition: width 0.5s;
 }
-
-/* .hrt{
-  transition: all 1s;
-} */
 
 .hrt:hover{
   fill:red;
@@ -410,18 +375,15 @@ p{
 }
 
 .login-Card{
-  /* height: 40vh; */
   width: 20em;
   display: flex;
   justify-content: space-around;
   flex-direction: column;
   align-items: center;
   padding: 15px;
-  /* background-color: red; */
 }
 
 .reg-Card{
-  /* height: 45vh; */
   width: 400px;
   display: flex;
   justify-content: space-around;
@@ -448,7 +410,6 @@ p{
   margin: 10px;
   padding: 15px;
   border-radius: 10px;
-  /* background-color: silver; */
   border: 2px solid black;
   display: flex;
   justify-content: center;
@@ -463,7 +424,6 @@ p{
 
 .cTile-dark{
   color: whitesmoke;
-  /* border: 2px solid silver; */
 }
 
 .sTile{
@@ -484,3 +444,16 @@ p{
   cursor: pointer;
 }
 
+.cartList{
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.cartList_products{
+  width: 85%;
+}
+
+.cartList_priceBar{
+  width: 15%;
+}
