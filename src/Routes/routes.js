@@ -61,7 +61,7 @@ function Routing({
           {data.status ? (
             <Routes>
               <Route
-                path="/"
+                path="/Shopoline/"
                 element={
                   <Suspense fallback={<Loader />}>
                     <Products />
@@ -69,7 +69,7 @@ function Routing({
                 }
               />
               <Route
-                path={"/product/:id/:desc"}
+                path={"/Shopoline/product/:id/:desc"}
                 element={
                   <Suspense fallback={<Loader />}>
                     <ProductView />
@@ -77,7 +77,7 @@ function Routing({
                 }
               />
               <Route
-                path={"/cart"}
+                path={"/Shopoline/cart"}
                 element={
                   <Suspense fallback={<Loader />}>
                     <Cart />

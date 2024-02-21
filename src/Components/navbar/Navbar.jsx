@@ -42,7 +42,7 @@ function Navbar() {
         <h2
           className="name"
           onClick={() => {
-            navigate("/");
+            navigate("/Shopoline/");
           }}
         >
           SHOPOLINE
@@ -104,7 +104,7 @@ function Navbar() {
             theme={theme}
           />
         )}
-        <div style={{ margin: "0px 15px" }} onClick={() => navigate("/cart")}>
+        <div style={{ margin: "0px 15px" }} onClick={() => navigate("/Shopoline/cart")}>
           <ShoppingCart />
         </div>
         <div>

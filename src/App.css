@@ -103,12 +103,13 @@ p{
 
 .tile-dark:hover{
   background-color: #6f8987;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
 }
 
 .tile-light:hover{
   background-color: rgb(250, 250, 250);
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
 }
 
 .card{
@@ -457,14 +458,43 @@ p{
 
 .cartList{
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   display: flex;
 }
 
 .cartList_products{
-  width: 85%;
+  width: 80%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  /* position: static; */
 }
 
 .cartList_priceBar{
-  width: 15%;
+  width: 19%;
+  padding: 10px;
+  position: fixed;
+  box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+  height: 100vh;
+  right: 0;
+  /* border: 1px solid black; */
+}
+
+.totalPrice{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.cartProductItems{
+  width: 100%;
+  margin: 10px 0px;
+  overflow: scroll;
+}
+
+.billItem{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  width: 90%;
 }

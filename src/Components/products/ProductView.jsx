@@ -182,7 +182,7 @@ function ProductView() {
                         }}
                       >
                         $
-                        {(
+                        {product.price-(
                           product.price *
                           (product.discountPercentage / 100)
                         ).toFixed(2)}
