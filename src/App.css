@@ -304,7 +304,7 @@ p{
   width: 80%;
 }
 
-.wishlist{
+.CopyLink{
   width: 20%;
   z-index: 1;
   display: flex;
@@ -312,15 +312,20 @@ p{
   padding: 20px;
 }
 
-.wishlisticon{
+.copyLinkIcon{
   width: 40px;
   height: 20px;
   transition: width 0.5s;
 }
 
-.hrt:hover{
-  fill:red;
+.linkIcon{
+  color: black;
+  size: 18px;
+  &:hover{
+    color: red;
+  }
 }
+
 
 .buyNow{
   min-width: 120px;
@@ -333,7 +338,14 @@ p{
   align-items: center;
   justify-content: center;
   margin: 20px;
-  cursor: pointer;
+}
+
+.bNow_false, .addCart_false{
+  cursor:not-allowed;
+}
+
+.bNow_true, .addCart_true{
+  cursor:pointer;
 }
 
 .buyNow:hover, .addCart:hover{
@@ -341,7 +353,6 @@ p{
 }
 
 .addCart{
-  cursor: pointer;
   min-width: 120px;
   padding: 0px 5px;
   margin: 20px;

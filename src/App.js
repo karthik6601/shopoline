@@ -5,28 +5,33 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Routing from "./Routes/routes";
 import { api } from "./API_URLs/api_urls";
 
-export const USER_ACTION={
-  REG:'reg',
-  LOGIN:'login',
-  LOGGED_IN:'logged_in',
-  LOGGED_OUT:'logged_out',
-  CLOSE:null
+export const USER_ACTION = {
+  REG: "reg",
+  LOGIN: "login",
+  LOGGED_IN: "logged_in",
+  LOGGED_OUT: "logged_out",
+  CLOSE: null,
 };
 const updateUser = (userData, action) => {
   switch (action.type) {
     case USER_ACTION.REG:
-      return {...userData, action:USER_ACTION.REG};
+      return { ...userData, action: USER_ACTION.REG };
     case USER_ACTION.LOGIN:
-      return {...userData, action:USER_ACTION.LOGIN};
+      return { ...userData, action: USER_ACTION.LOGIN };
     case USER_ACTION.CLOSE:
-      return {...userData, action:USER_ACTION.CLOSE}
+      return { ...userData, action: USER_ACTION.CLOSE };
     case USER_ACTION.LOGGED_IN:
-      sessionStorage.setItem("user", JSON.stringify(action.uName));
-      // console.log('set local storage')
-      return {...userData, isLoggedin:true, action:USER_ACTION.CLOSE, userName:action.uName};
+      sessionStorage.setItem("user", action.uName);
+      // console.log("set local storage");
+      return {
+        ...userData,
+        isLoggedin: true,
+        action: USER_ACTION.CLOSE,
+        userName: action.uName,
+      };
     case USER_ACTION.LOGGED_OUT:
       sessionStorage.removeItem("user");
-      return {...userData, isLoggedin:false, userName:""};
+      return { ...userData, isLoggedin: false, userName: "" };
     default:
       return userData;
   }
@@ -44,7 +49,7 @@ function App() {
     userName: "",
     action: null,
   });
-  const [sortKey, setSortKey] = useState();
+  // const [sortKey, setSortKey] = useState();
   const [theme, setTheme] = useState("light");
 
   const filteredProducts = useMemo(() => {
@@ -93,9 +98,11 @@ function App() {
           console.log(err);
         });
     };
-    const user= JSON.parse(sessionStorage.getItem("user"));
+    const user = sessionStorage.getItem("user");
     // console.log(user)
-    setUser({type:USER_ACTION.LOGGED_IN, uName:user})
+    if (user) {
+      setUser({ type: USER_ACTION.LOGGED_IN, uName: user });
+    }
     setTimeout(() => {
       fetchData();
     }, 2000);
@@ -103,10 +110,9 @@ function App() {
     return () => controller.abort();
   }, []);
 
-  useEffect(()=>{
-    user.userName?.length > 0 && console.log('action',user)
-  },[user])
-
+  useEffect(() => {
+    user.userName?.length > 0 && console.log("action", user);
+  }, [user]);
 
   const handleSearch = (value) => {
     // console.log(location, navigate)

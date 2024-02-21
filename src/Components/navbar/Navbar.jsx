@@ -8,7 +8,7 @@ import { LogIn } from "lucide-react";
 import { UserPlus } from "lucide-react";
 import SearchBox from "./SearchBox";
 import { stateProps } from "../../Routes/routes";
-import { USER_ACTION } from "../../App";
+// import { USER_ACTION } from "../../App";
 import { useNavigate } from "react-router-dom";
 
 function Navbar() {
@@ -22,12 +22,12 @@ function Navbar() {
   const handleNewUser = () => {
     setUser({ type: USER_ACTION.REG });
   };
-  const handleLoginClose = () => {
-    setUser({ type: USER_ACTION.CLOSE });
+  // const handleLoginClose = () => {
+  //   setUser({ type: USER_ACTION.CLOSE });
+  // };
+  const handleLogout = () => {
+    setUser({ type: USER_ACTION.LOGGED_OUT });
   };
-  const handleLogout=()=>{
-    setUser({type:USER_ACTION.LOGGED_OUT})
-  }
   return (
     <div className="navbar">
       <div
@@ -62,23 +62,34 @@ function Navbar() {
       >
         {user.isLoggedin ? (
           <MenuButton
-          label={<span style={{color:'black', display:'flex', alignItems:'center'}}><CircleUser style={{margin:'0px 10px'}}/>{user.userName}</span>}
-          options={[
-            {
-              item: <LogOut size={"16px"} onClick={handleLogout} />,
-              close: true,
-              name: "Log-Out",
-              handleClickOption: handleLogout,
+            label={
+              <span
+                style={{
+                  color: "black",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <CircleUser style={{ margin: "0px 10px" }} />
+                {user.userName}
+              </span>
             }
-          ]}
-          theme={theme}
-        />
+            options={[
+              {
+                item: <LogOut size={"16px"} onClick={handleLogout} />,
+                close: true,
+                name: "Log-Out",
+                handleClickOption: handleLogout,
+              },
+            ]}
+            theme={theme}
+          />
         ) : (
           <MenuButton
             label={<User color="black" />}
             options={[
               {
-                item: <LogIn size={"16px"} onClick={handleLogin} />,
+                item: <LogIn size={"16px"} onClick={() => handleLogin} />,
                 close: true,
                 name: "Log-In",
                 handleClickOption: handleLogin,
@@ -93,7 +104,7 @@ function Navbar() {
             theme={theme}
           />
         )}
-        <div style={{margin:'0px 15px'}} onClick={()=>navigate("/cart")}>
+        <div style={{ margin: "0px 15px" }} onClick={() => navigate("/cart")}>
           <ShoppingCart />
         </div>
         <div>
@@ -106,9 +117,10 @@ function Navbar() {
 }
 
 const ToggleTheme = ({ theme, setTheme }) => {
-  const [toggle, setToggle] = React.useState(theme == "dark");
+  const [toggle, setToggle] = React.useState(theme === "dark");
   React.useEffect(() => {
     setTheme(() => (toggle ? "dark" : "light"));
+  //eslint-disable-next-line
   }, [toggle]);
   return (
     <FormControlLabel
