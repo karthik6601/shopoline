@@ -3,6 +3,7 @@ import axios from "axios";
 import { api } from "../../API_URLs/api_urls";
 import { stateProps } from "../../Routes/routes";
 import ProductTile from "../../reusableComponent/ProductTile";
+import Loader from "../../reusableComponent/Loader";
 
 function Cart() {
   const { user, theme } = useContext(stateProps);
@@ -11,48 +12,49 @@ function Cart() {
     totalDiscount: null,
     discountedTotal: null,
     selectAll: true,
+    userCart: {},
     items: [],
   });
   useEffect(() => {
     if (user.isLoggedin) {
-      axios.get(api.getCartItems(user.userName)).then((el) => {
-        // console.log("api triggered");
-        if (el.data.items) {
-          Promise.all(getProducts(el))
-            .then((vals) => {
-              let newBill = {
-                total: 0,
-                totalDiscount: 0,
-                discountedTotal: 0,
-                selectAll: true,
-              };
-              const prods = vals.map((el) => el.data);
-              prods.forEach(({ price, discountPercentage }) => {
-                newBill.total += price;
-                newBill.totalDiscount += Number(
-                  ((price * discountPercentage) / 100).toFixed(2)
-                );
-                newBill.discountedTotal = Number(
-                  (newBill.total - newBill.totalDiscount).toFixed(2)
-                );
-              });
-              // setItems(prods);
-              setCartProducts({
-                ...cartProducts,
-                ...newBill,
-                items: prods,
-              });
-            })
-            .catch((err) => console.log(err));
-          // console.log(prods)
-        }
-      });
+      getUserCart();
+    }else{
+      console.log(user)
     }
   }, [user]);
 
-  useEffect(() => {
-    console.log("hello", cartProducts);
-  }, [cartProducts.items]);
+  const getUserCart=async()=>{
+    await axios.get(api.getCartItems(user.userName)).then((el) => {
+      if (el.data.items) {
+        Promise.all(getProducts(el))
+          .then((vals) => {
+            let newBill = {
+              total: 0,
+              totalDiscount: 0,
+              discountedTotal: 0,
+              selectAll: true,
+            };
+            const prods = vals.map((el) => el.data);
+            prods.forEach(({ price, discountPercentage }) => {
+              newBill.total += price;
+              newBill.totalDiscount += Number(
+                ((price * discountPercentage) / 100).toFixed(2)
+              );
+              newBill.discountedTotal = Number(
+                (newBill.total - newBill.totalDiscount).toFixed(2)
+              );
+            });
+            setCartProducts({
+              ...cartProducts,
+              ...newBill,
+              items: prods,
+              userCart: el.data.items,
+            });
+          })
+          .catch((err) => console.log(err));
+      }
+    });
+  }
 
   const getProducts = (el) => {
     return Object.keys(el.data.items).map(async (product) => {
@@ -62,13 +64,56 @@ function Cart() {
     });
   };
 
+  const deleteProd = async (id) => {
+    if(user.isLoggedin && id){
+      await axios
+      .delete(api.delCartItems(user.userName, id))
+      .then((res) => {
+        getUserCart()
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }else{
+      console.log('error while deleting item from cart', 'user', user, 'id', id)
+    }
+  };
+
+  const alterQty=async(prd, qty)=>{
+    if(user.isLoggedin){
+      const putData={
+        user:user.userName,
+        product:prd,
+        qty:qty
+      }
+      await axios.put(api.addItems, putData).then(resp=>{
+          console.log(resp);
+          getUserCart();
+      }).catch(err=>{
+        console.log(err);
+      })
+    }
+  }
+
   return (
     <div className={"cartList"}>
-      {cartProducts.items.length > 0 && (
+      {cartProducts.items.length > 0 ? (
         <>
           <div className="cartList_products">
             {cartProducts.items.map((el) => {
-              return <ProductTile product={el} theme={theme} />;
+              return (
+                <ProductTile
+                  product={el}
+                  theme={theme}
+                  cart={{
+                    qty: cartProducts.userCart[el.id],
+                    user: user.userName,
+                    id: el.id,
+                    deleteProd,
+                    alterQty
+                  }}
+                />
+              );
             })}
           </div>
           <div className="cartList_priceBar">
@@ -108,18 +153,26 @@ function Cart() {
                   </h4>
                 </div>
               )}
-              
               <div className="cartProductItems">
                 <h3>Items</h3>
-                {cartProducts.items.map(({ price, title, discountPercentage }) => (
-                  <div className="billItem">
-                    <h5>{title.slice(0,25)+`${title.length > 24 && '..'}`}</h5> <h5>{price-(price* discountPercentage/100)}</h5>
-                  </div>
-                ))}
+                {cartProducts.items.map(
+                  ({ price, title, discountPercentage }) => (
+                    <div className="billItem">
+                      <h5 style={{ width: "60%" }}>{title}</h5>{" "}
+                      <h5 style={{ width: "30%" }}>
+                        ${(price - (price * discountPercentage / 100)).toFixed(2)}
+                      </h5>
+                    </div>
+                  )
+                )}
               </div>
             </div>
           </div>
         </>
+      ) : (
+        <div style={{height:'90vh', width:'100%'}}>
+          <Loader />
+        </div>
       )}
     </div>
   );

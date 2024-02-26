@@ -1,6 +1,6 @@
 import React, { createContext } from "react";
 import { lazy, Suspense } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "../Components/navbar/Navbar";
 // import Products from "../Components/products/productCatalogue";
 // import ProductView from "../Components/products/ProductView";
@@ -60,6 +60,12 @@ function Routing({
         <div style={{ overflow: "scroll", height: "93%" }} className="contents">
           {data.status ? (
             <Routes>
+              <Route
+                path={"/"}
+                element={
+                  <Navigate to={"/Shopoline/"} />
+                }
+              />
               <Route
                 path="/Shopoline/"
                 element={

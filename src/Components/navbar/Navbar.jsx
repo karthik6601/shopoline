@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext} from "react";
 import MenuButton from "../../reusableComponent/menuButton";
 import { CircleUser, LogOut, ShoppingCart, User } from "lucide-react";
 import { styled } from "@mui/material/styles";
@@ -8,11 +8,11 @@ import { LogIn } from "lucide-react";
 import { UserPlus } from "lucide-react";
 import SearchBox from "./SearchBox";
 import { stateProps } from "../../Routes/routes";
-// import { USER_ACTION } from "../../App";
+import { USER_ACTION } from "../../App";
 import { useNavigate } from "react-router-dom";
 
 function Navbar() {
-  const { theme, setTheme, handleSearch, user, setUser, USER_ACTION } =
+  const { theme, setTheme, handleSearch, user, setUser } =
     useContext(stateProps);
   const navigate = useNavigate();
 
@@ -22,9 +22,7 @@ function Navbar() {
   const handleNewUser = () => {
     setUser({ type: USER_ACTION.REG });
   };
-  // const handleLoginClose = () => {
-  //   setUser({ type: USER_ACTION.CLOSE });
-  // };
+
   const handleLogout = () => {
     setUser({ type: USER_ACTION.LOGGED_OUT });
   };
@@ -104,7 +102,16 @@ function Navbar() {
             theme={theme}
           />
         )}
-        <div style={{ margin: "0px 15px" }} onClick={() => navigate("/Shopoline/cart")}>
+        <div
+          style={{ margin: "0px 15px", cursor:'pointer' }}
+          onClick={() => {
+            if (user.isLoggedin) {
+              navigate("/Shopoline/cart");
+            } else {
+              setUser({ type: USER_ACTION.LOGIN });
+            }
+          }}
+        >
           <ShoppingCart />
         </div>
         <div>
@@ -112,6 +119,7 @@ function Navbar() {
         </div>
         {/* </div> */}
       </div>
+      
     </div>
   );
 }
@@ -120,17 +128,15 @@ const ToggleTheme = ({ theme, setTheme }) => {
   const [toggle, setToggle] = React.useState(theme === "dark");
   React.useEffect(() => {
     setTheme(() => (toggle ? "dark" : "light"));
-  //eslint-disable-next-line
+    //eslint-disable-next-line
   }, [toggle]);
   return (
     <FormControlLabel
       control={<MaterialUISwitch sx={{ m: 1 }} />}
-      // checked={theme=='dark'}
       checked={toggle}
       onChange={(e) => {
         setToggle(!toggle);
       }}
-      // label={'Switch Theme'}
     />
   );
 };

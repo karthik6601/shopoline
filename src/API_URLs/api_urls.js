@@ -12,4 +12,8 @@ api.getCartItems=(user)=>{
     return `${apiBase}products/getCartItems/${user}`;
 }
 
+api.delCartItems=(user, id)=>{
+    return `${apiBase}products/deleteProduct/${user}/${id}`;
+}
+
 api.addItems=`${apiBase}products/addProduct`

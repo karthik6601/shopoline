@@ -28,19 +28,6 @@ function Products() {
       : prods;
   }, [selectedCategory, prods]);
 
-  // useEffect(()=>{
-  //   console.log(catRef);
-  // },[catRef.current.scrollLeft])
-
-  
-
-  // const handlePreviewClose = () => {
-  //   setPreview((prev) => (prev.open = false));
-  // };
-
-  // const handlePreviewOpen = (id) => {
-  //   setPreview({ open: true, product: id });
-  // };
 
   const handleCategorySelect = (category) => {
     if (selectedCategory.includes(category)) {

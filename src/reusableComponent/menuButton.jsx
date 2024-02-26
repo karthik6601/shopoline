@@ -5,11 +5,8 @@ import MenuItem from "@mui/material/MenuItem";
 
 export default function MenuButton({ label, options, theme }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  // console.log(theme);
   const open = Boolean(anchorEl);
   React.useEffect(() => {
-    // if (open) {
-    // console.log('hello');
     const style = document.createElement("style");
     style.innerHTML = `
       .css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper {
@@ -20,9 +17,7 @@ export default function MenuButton({ label, options, theme }) {
         margin-right:0px;
       }
     `;
-    // console.log(style, theme == "light");
     document.head.appendChild(style);
-    // }
   }, [theme]);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -30,8 +25,6 @@ export default function MenuButton({ label, options, theme }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  // console.log(options);
 
   return (
     <div>

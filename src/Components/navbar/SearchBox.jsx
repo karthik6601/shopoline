@@ -7,7 +7,6 @@ function searchBox({ handleSearch }) {
       timer && clearTimeout(timer);
       timer=setTimeout(()=>{
         handleSearch(value);
-        // console.log(value);
       }, 800);
     }
   }
