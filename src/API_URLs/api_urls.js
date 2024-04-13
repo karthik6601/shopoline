@@ -1,8 +1,9 @@
 export let api= {}
 
-const apiBase='http://localhost:1234/';
+// const apiBase='http://localhost:1234/';
+const apiBase='https://shopoline-api.onrender.com/';
 
-api.newUser=`${apiBase}user/insert`;
+api.newUser=`${apiBase}user/register`;
 
 api.fetchProducts=`https://dummyjson.com/products?limit=100`;
 

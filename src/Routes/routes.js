@@ -60,14 +60,14 @@ function Routing({
         <div style={{ overflow: "scroll", height: "93%" }} className="contents">
           {data.status ? (
             <Routes>
-              <Route
+              {/* <Route
                 path={"/"}
                 element={
                   <Navigate to={"/Shopoline/"} />
                 }
-              />
+              /> */}
               <Route
-                path="/Shopoline/"
+                path="/"
                 element={
                   <Suspense fallback={<Loader />}>
                     <Products />
@@ -75,7 +75,7 @@ function Routing({
                 }
               />
               <Route
-                path={"/Shopoline/product/:id/:desc"}
+                path={"/product/:id/:desc"}
                 element={
                   <Suspense fallback={<Loader />}>
                     <ProductView />
@@ -83,7 +83,7 @@ function Routing({
                 }
               />
               <Route
-                path={"/Shopoline/cart"}
+                path={"/cart"}
                 element={
                   <Suspense fallback={<Loader />}>
                     <Cart />

@@ -87,7 +87,7 @@ function Cart() {
         qty:qty
       }
       await axios.put(api.addItems, putData).then(resp=>{
-          console.log(resp);
+          // console.log(resp);
           getUserCart();
       }).catch(err=>{
         console.log(err);

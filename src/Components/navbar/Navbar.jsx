@@ -40,7 +40,7 @@ function Navbar() {
         <h2
           className="name"
           onClick={() => {
-            navigate("/Shopoline/");
+            navigate("/");
           }}
         >
           SHOPOLINE
@@ -106,7 +106,7 @@ function Navbar() {
           style={{ margin: "0px 15px", cursor:'pointer' }}
           onClick={() => {
             if (user.isLoggedin) {
-              navigate("/Shopoline/cart");
+              navigate("/cart");
             } else {
               setUser({ type: USER_ACTION.LOGIN });
             }
