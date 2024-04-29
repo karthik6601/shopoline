@@ -1,7 +1,7 @@
 export let api= {}
 
 // const apiBase='http://localhost:1234/';
-const apiBase='https://shopoline-api.onrender.com/';
+const apiBase=window.location.href.includes('localhost') ? 'http://localhost:1234/':'https://shopoline-api.onrender.com/';
 
 api.newUser=`${apiBase}user/register`;
 

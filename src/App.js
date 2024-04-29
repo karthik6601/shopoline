@@ -118,7 +118,7 @@ function App() {
     // console.log(location, navigate)
     SetSearchValue(value);
     if (!location.pathname.includes("products")) {
-      navigate("/Shopoline/");
+      navigate("/");
     }
   };
 

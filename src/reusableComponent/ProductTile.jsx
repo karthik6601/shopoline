@@ -8,7 +8,7 @@ function ProductTile({ product, theme, cart }) {
   const [quantity, setQuantity] = useState(0);
   const navigate = useNavigate();
   const navigateToProductPage = () => {
-    navigate(`/Shopoline/product/${product.id}/${product.title}`);
+    navigate(`/product/${product.id}/${product.title}`);
   };
 
   useEffect(() => {
